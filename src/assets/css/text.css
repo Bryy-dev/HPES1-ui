@@ -1,0 +1,3 @@
+.header-text {
+    @apply text-lg font-bold mb-4 text-cyan-500
+}
