@@ -64,7 +64,7 @@
 
     /* Panel */
     .panel {
-        @apply relative rounded-md bg-white p-5 shadow dark:bg-black rounded-2xl;
+        @apply relative  bg-white p-8 dark:bg-black rounded-xl shadow-lg border border-gray-200;
     }
     /* Navbar */
     .navbar-sticky header,
