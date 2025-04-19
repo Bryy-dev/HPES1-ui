@@ -1,0 +1,1 @@
+import{j as a}from"./index-CgcADzHc.js";const t=({})=>a.jsxs("div",{children:[" ",a.jsx("img",{src:"../../public/assets/images/org-chart.png",className:"max-h-full max-w-full object-contain rounded-xl p-5",alt:"itemImage"})]});export{t as default};
