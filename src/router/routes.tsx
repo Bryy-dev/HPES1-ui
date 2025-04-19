@@ -3,6 +3,9 @@ const LandingPage = lazy(() => import('../pages/landing-page/LandingPage'));
 const GaleryPage = lazy(() => import('../pages/gallery-page/GaleryPage'));
 const NewsAndEvents = lazy(() => import('../pages/news-events/News&Events'));
 const RequestForm = lazy(() => import('../pages/issuance/Issuance'));
+const LearningModules = lazy(() => import('../pages/modules/Modules'));
+const OrganizationalChart = lazy(() => import('../pages/organizational-chart/OrganizationalChart'));
+const History = lazy(() => import('../pages/history/History'));
 
 const routes = [
     // dashboard
@@ -24,6 +27,23 @@ const routes = [
     {
         path: '/Issuance/Form',
         element: <RequestForm />,
+        layout: 'default',
+    },
+    {
+        path: '/Services/LearningModules',
+        element: <LearningModules />,
+        layout: 'default',
+    },
+
+    {
+        path: '/AboutUs/OrganizationalChart',
+        element: <OrganizationalChart />,
+        layout: 'default',
+    },
+
+    {
+        path: '/AboutUs/History',
+        element: <History />,
         layout: 'default',
     },
 ];

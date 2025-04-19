@@ -46,7 +46,9 @@ const Header = () => {
                             <Link to="/" className="main-logo flex items-center shrink-0">
                                 <img className="w-24 ltr:-ml-1 rtl:-mr-1 inline" src="/public/assets/images/hpes-logo.png" alt="logo" />
                                 <div className="grid px-2">
-                                    <span className="text-2xl ltr:ml-1.5 rtl:mr-1.5 font-black hidden md:inline dark:text-white-light transition-all duration-300">Hen Pio Elementary School 1</span>
+                                    <span className="text-2xl ltr:ml-1.5 rtl:mr-1.5 font-black hidden md:inline dark:text-white-light transition-all duration-300 text-cyan-500">
+                                        Hen Pio Del Pilar Elementary School 1
+                                    </span>
                                     <span className="text-base ltr:ml-1.5 rtl:mr-1.5 font-semibold hidden md:inline dark:text-white-light transition-all duration-300">
                                         Division Of City Schools Makati
                                     </span>
@@ -56,7 +58,7 @@ const Header = () => {
                     </div>
 
                     {/* Right: SDO Logo */}
-                    <div className="flex items-center text-blue-500">
+                    <div className="flex items-center text-cyan-500">
                         <div className="text-right text-xs font-black pe-4">
                             <h2 className="">LEAD.INOVATE.TRANSFORM</h2>
                             <h2>TATAK PRIMERO</h2>
@@ -67,32 +69,32 @@ const Header = () => {
                 </div>
 
                 {/* horizontal menu */}
-                <ul className="horizontal-menu hidden py-1.5 font-semibold px-2 lg:space-x-1.5 xl:space-x-2 rtl:space-x-reverse bg-white border-t border-[#ebedf2] dark:border-[#191e3a] dark:bg-black text-black dark:text-white-dark">
+                <ul className="horizontal-menu hidden py-1.5 font-semibold px-2 lg:space-x-1.5 xl:space-x-2 rtl:space-x-reverse bg-white border-t border-[#ebedf2] dark:border-[#191e3a] dark:bg-black text-cyan-500 dark:text-white-dark">
                     <button type="button" className="nav-link">
                         <div className="flex items-center gap-1">
-                            <FontAwesomeIcon icon={faHouseChimney} size="lg" className="text-gray-600" />
+                            <FontAwesomeIcon icon={faHouseChimney} size="lg" className="text-cyan-500" />
                             <NavLink to="/">Home</NavLink>
                         </div>
                     </button>
 
                     <button type="button" className="nav-link">
                         <div className="flex items-center gap-1">
-                            <FontAwesomeIcon icon={faImages} size="lg" className="text-gray-600" />
+                            <FontAwesomeIcon icon={faImages} size="lg" className="text-cyan-500" />
                             <NavLink to="/Gallery">Gallery</NavLink>
                         </div>
                     </button>
 
                     <button type="button" className="nav-link">
                         <div className="flex items-center gap-1">
-                            <FontAwesomeIcon icon={faNewspaper} size="lg" className="text-gray-600" />
+                            <FontAwesomeIcon icon={faNewspaper} size="lg" className="text-cyan-500" />
                             <NavLink to="/News&Events">News & Events</NavLink>
                         </div>
                     </button>
 
                     <li className="menu nav-item relative">
                         <button type="button" className="nav-link">
+                            <FontAwesomeIcon icon={faPager} size="lg" className="text-cyan-500" />
                             <div className="flex items-center">
-                                <FontAwesomeIcon icon={faPager} size="lg" className="text-gray-600" />
                                 <span className="px-1">Services</span>
                             </div>
                             <div className="right_arrow">
@@ -101,21 +103,21 @@ const Header = () => {
                         </button>
                         <ul className="sub-menu">
                             <li>
-                                <NavLink to="/apps/chat">Learning Resources System</NavLink>
+                                <NavLink to="/">Learning Resources System</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/apps/mailbox">Learning Modules</NavLink>
+                                <NavLink to="/Services/LearningModules">Learning Modules</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/apps/mailbox">Downloads</NavLink>
+                                <NavLink to="/">Downloads</NavLink>
                             </li>
                         </ul>
                     </li>
 
                     <li className="menu nav-item relative">
                         <button type="button" className="nav-link">
+                            <FontAwesomeIcon icon={faFolderOpen} size="lg" className="text-cyan-500" />
                             <div className="flex items-center">
-                                <FontAwesomeIcon icon={faFolderOpen} size="lg" className="text-gray-600" />
                                 <span className="px-1">Issuance</span>
                             </div>
                             <div className="right_arrow">
@@ -127,17 +129,17 @@ const Header = () => {
                                 <NavLink to="/Issuance/Form">Request Form</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/apps/mailbox">Memorandum</NavLink>
+                                <NavLink to="/">Memorandum</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/apps/mailbox">Downloads</NavLink>
+                                <NavLink to="/">Downloads</NavLink>
                             </li>
                         </ul>
                     </li>
 
                     <button type="button" className="nav-link">
                         <div className="flex items-center gap-1">
-                            <FontAwesomeIcon icon={faClipboardList} size="lg" className="text-gray-600" />
+                            <FontAwesomeIcon icon={faClipboardList} size="lg" className="text-cyan-500" />
                             <NavLink to="/">Tranparency Board</NavLink>
                         </div>
                     </button>
@@ -153,16 +155,16 @@ const Header = () => {
                         </button>
                         <ul className="sub-menu">
                             <li>
-                                <NavLink to="/apps/chat">History</NavLink>
+                                <NavLink to="/AboutUs/History">History</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/apps/chat">Organizational Chart</NavLink>
+                                <NavLink to="/AboutUs/OrganizationalChart">Organizational Chart</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/apps/mailbox">School Hymm</NavLink>
+                                <NavLink to="/">School Hymm</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/apps/mailbox">School Prayers</NavLink>
+                                <NavLink to="/">School Prayers</NavLink>
                             </li>
                         </ul>
                     </li>
