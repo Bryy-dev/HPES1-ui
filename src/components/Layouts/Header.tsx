@@ -56,13 +56,18 @@ const Header = () => {
                     </div>
 
                     {/* Right: SDO Logo */}
-                    <div className="flex items-center">
+                    <div className="flex items-center text-blue-500">
+                        <div className="text-right text-xs font-black pe-4">
+                            <h2 className="">LEAD.INOVATE.TRANSFORM</h2>
+                            <h2>TATAK PRIMERO</h2>
+                            <h2>TATAK MAKATIZEN</h2>
+                        </div>
                         <img className="w-24" src="/public/assets/images/sdo-logo.png" alt="sdo-logo" />
                     </div>
                 </div>
 
                 {/* horizontal menu */}
-                <ul className="horizontal-menu hidden py-1.5 font-semibold px-6 lg:space-x-1.5 xl:space-x-8 rtl:space-x-reverse bg-white border-t border-[#ebedf2] dark:border-[#191e3a] dark:bg-black text-black dark:text-white-dark">
+                <ul className="horizontal-menu hidden py-1.5 font-semibold px-2 lg:space-x-1.5 xl:space-x-2 rtl:space-x-reverse bg-white border-t border-[#ebedf2] dark:border-[#191e3a] dark:bg-black text-black dark:text-white-dark">
                     <button type="button" className="nav-link">
                         <div className="flex items-center gap-1">
                             <FontAwesomeIcon icon={faHouseChimney} size="lg" className="text-gray-600" />
@@ -73,14 +78,14 @@ const Header = () => {
                     <button type="button" className="nav-link">
                         <div className="flex items-center gap-1">
                             <FontAwesomeIcon icon={faImages} size="lg" className="text-gray-600" />
-                            <NavLink to="/">Galery</NavLink>
+                            <NavLink to="/Gallery">Gallery</NavLink>
                         </div>
                     </button>
 
                     <button type="button" className="nav-link">
                         <div className="flex items-center gap-1">
                             <FontAwesomeIcon icon={faNewspaper} size="lg" className="text-gray-600" />
-                            <NavLink to="/">News & Events</NavLink>
+                            <NavLink to="/News&Events">News & Events</NavLink>
                         </div>
                     </button>
 
@@ -119,7 +124,7 @@ const Header = () => {
                         </button>
                         <ul className="sub-menu">
                             <li>
-                                <NavLink to="/apps/chat">Request Form</NavLink>
+                                <NavLink to="/Issuance/Form">Request Form</NavLink>
                             </li>
                             <li>
                                 <NavLink to="/apps/mailbox">Memorandum</NavLink>
