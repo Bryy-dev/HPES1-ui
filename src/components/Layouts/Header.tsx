@@ -137,12 +137,6 @@ const Header = () => {
                         </ul>
                     </li>
 
-                    <button type="button" className="nav-link">
-                        <div className="flex items-center gap-1">
-                            <FontAwesomeIcon icon={faClipboardList} size="lg" className="text-cyan-500" />
-                            <NavLink to="/">Tranparency Board</NavLink>
-                        </div>
-                    </button>
                     <li className="menu nav-item relative">
                         <button type="button" className="nav-link">
                             <div className="flex items-center">
