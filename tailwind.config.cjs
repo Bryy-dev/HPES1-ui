@@ -80,6 +80,12 @@ module.exports = {
                     },
                 },
             }),
+            screens: {
+                mobile: '375px',       // for smartphones
+                tablet: '640px',   // for tablets
+                pc: '1024px',      // for desktops/laptops
+                wide: '1536px',     // for wide or high-definition screens
+            }
         },
     },
     plugins: [
