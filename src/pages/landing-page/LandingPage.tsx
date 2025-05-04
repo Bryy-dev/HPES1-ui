@@ -52,31 +52,46 @@ const LandingPage: React.FC<LandingPageProps> = () => {
 
     return (
         //main panel
-        <div className="grid grid-cols-7 gap-3">
-            <div className="col-span-7 panel">
-                <div className="grid grid-cols-7 gap-8">
-                    <div className="col-span-3">
-                        <h2 className="header-text text-center">Welcome Message</h2>
-                        <h4 className="text-base text-justify">
-                            {` Welcome to Hen Pio Elementary School 1 — a place where dreams take flight and futures are built with purpose. At Hen Pio Elementary School 1, we believe that every child
-                            holds within them a spark of greatness. Our mission is to ignite that spark through a nurturing environment, passionate teaching, and endless opportunities to explore,
-                            grow, and shine. Education is not just about books and exams — it’s about discovering who you are, what you believe in, and how you can make a difference in the world.
-                            Every hallway, every classroom, and every moment in our school is filled with the energy of possibility. To our students: You are the heart of this school. Never stop
-                            asking questions, challenging yourself, and believing that you can achieve amazing things. To our parents: Thank you for trusting us with your child’s journey. Together, we
-                            are shaping the leaders, thinkers, and changemakers of tomorrow. And to our visitors: We invite you to explore our vibrant school community — a place where learning is an
-                            adventure and every student is valued. Let’s continue to dream big, work hard, and lift each other higher. The best is yet to come. `}
-                        </h4>
-                        <h4 className="pt-2 font-bold">LEAD.INNOVATE.TRANSFORM</h4>
-                    </div>
-                    <div className="col-span-4">
-                        <img src={'../../public/assets/images/school.jpg'} className="max-h-full max-w-full object-contain rounded-xl p-5" alt="itemImage" />
-                    </div>
+        <div className="pc:grid grid-cols-8 gap-3">
+            <div className="col-span-8 panel">
+            <div className="">
+                    <h2 className="header-text">News </h2>
+                    <Swiper
+                        modules={[Navigation, Pagination]}
+                        navigation={{ nextEl: '.swiper-button-next-ex1', prevEl: '.swiper-button-prev-ex1' }}
+                        pagination={{ clickable: true }}
+                        className="swiper max-w-7xl mx-auto mb-5"
+                        id="slider2"
+                    >
+                        <div className="swiper-wrapper">
+                            {itemImages.map((item, i) => {
+                                return (
+                                    <SwiperSlide key={i}>
+                                        <div className="h-[40rem] w-full relative overflow-hidden p-7 " style={{ backgroundImage: `url(${item.src})` }}>
+                                            {/* Blurred background */}
+                                            <div className="absolute inset-0 bg-cover bg-center blur-sm brightness-75 z-0" style={{ backgroundImage: `url(${item.src})` }}></div>
+                                            {/* Upper text */}
+                                            <div className="absolute top-0 left-0 w-full p-5 z-20">
+                                                <div className="text-white text-sm font-semibold bg-black/50 px-3 py-1 rounded-md inline-block">{item.date}</div>
+                                            </div>
+
+                                            {/* Clear foreground image */}
+                                            <div className="relative h-full w-full flex justify-center items-center z-10">
+                                                <img src={item.src} className="max-h-full max-w-full object-contain rounded-2xl" alt="itemImage" />
+                                            </div>
+                                        </div>
+                                    </SwiperSlide>
+                                );
+                            })}
+                        </div>
+                    </Swiper>
                 </div>
+               
             </div>
             {/* left side panel */}
-            <div className="col-span-5">
-                <div className="panel">
-                    <h2 className="header-text">News & Events</h2>
+            <div className="col-span-4 panel">
+                <div className="">
+                    <h2 className="header-text">Events</h2>
                     <Swiper
                         modules={[Navigation, Pagination]}
                         navigation={{ nextEl: '.swiper-button-next-ex1', prevEl: '.swiper-button-prev-ex1' }}
@@ -110,7 +125,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
             </div>
 
             {/* right side panel */}
-            <div className="col-span-2 grid grid-cols-1 gap-2">
+            <div className="col-span-4 grid gap-2">
                 <div className="panel calendar-wrapper">
                     <h2 className="header-text">Calendar</h2>
                     <FullCalendar
@@ -139,7 +154,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
 
                 <div className="panel">
                     <h2 className="header-text">Downloadables</h2>
-                    <ul className="download-list">
+                    <ul className="download-list grid grid-cols-2">
                         <li>
                             <a href="/downloads/student-handbook.pdf" download>
                                 📘 Student Handbook
