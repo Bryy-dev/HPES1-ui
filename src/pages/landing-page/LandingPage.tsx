@@ -9,12 +9,12 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { itemImages } from '../../data/ItemImages';
-
+import TestService from '../../services/testService';
 interface LandingPageProps {}
 
 const LandingPage: React.FC<LandingPageProps> = () => {
     const calendarRef = useRef<any>(null);
-
+    const testService = TestService()
     const events = [
         // Regular Holidays
         { title: "New Year's Day", date: '2025-01-01' },
@@ -50,6 +50,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
         { title: 'End of School Year', date: '2025-04-15' },
     ];
 
+    console.log(testService.test())
     return (
         //main panel
         <div className="pc:grid grid-cols-8 gap-3">
