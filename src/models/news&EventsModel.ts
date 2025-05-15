@@ -14,4 +14,5 @@ export interface NewsAndEventsModel {
     date: string; // date of event or news (ISO format recommended)
     created_at?: string; // when this was uploaded (also ISO format)
     images: MediaItem[];
+    url?: string;
 }

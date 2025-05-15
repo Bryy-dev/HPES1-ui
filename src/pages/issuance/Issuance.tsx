@@ -51,7 +51,7 @@ const IssuancePage: React.FC<IssuanceProps> = ({}) => {
 
                             {/* Modal Content */}
                             <div className="panel">
-                                <div className="mb-5 py-2">
+                                <div className="mb-5 py-2 text-center">
                                     <h2 className="text-4xl font-black text-gray-800 dark:text-white ">
                                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Document Request Form</span>
                                     </h2>

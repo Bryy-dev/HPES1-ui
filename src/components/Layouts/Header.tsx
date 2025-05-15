@@ -94,7 +94,7 @@ const Header = () => {
                             </button>
                             <ul className="sub-menu absolute left-0 top-full bg-white shadow-lg rounded-md py-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
                                 <li>
-                                    <NavLink to="/" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
+                                    <NavLink to="https://system.hpdpes1.com/" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
                                         Learning Resources System
                                     </NavLink>
                                 </li>
@@ -103,11 +103,11 @@ const Header = () => {
                                         Learning Modules
                                     </NavLink>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <NavLink to="/" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
                                         Downloads
                                     </NavLink>
-                                </li>
+                                </li> */}
                             </ul>
                         </li>
 
@@ -120,19 +120,19 @@ const Header = () => {
                             <ul className="sub-menu absolute left-0 top-full bg-white shadow-lg rounded-md py-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
                                 <li>
                                     <NavLink to="/Issuance/Form" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
-                                        Request Form
+                                        Document Request Form
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
-                                        Memorandum
+                                    <NavLink to="/Issuance/Brigada/Form" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
+                                        Brigada Eskwela Donor Form
                                     </NavLink>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <NavLink to="/" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
                                         Downloads
                                     </NavLink>
-                                </li>
+                                </li> */}
                             </ul>
                         </li>
 

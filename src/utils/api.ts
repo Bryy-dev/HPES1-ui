@@ -1,13 +1,12 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
 
-
 // Define a base URL for your API
-const baseURL = 'http://localhost:4000/api/' 
+// const baseURL = 'http://localhost:4000/api/';
+const baseURL = 'https://server.hpdpes1.com/api/';
 // Create an instance of Axios with default configurations
 const api = axios.create({
-    baseURL
+    baseURL,
 });
-
 
 // Define a type for your API response data
 export interface ApiResponse<T = any> {
@@ -25,10 +24,7 @@ export interface ApiError {
 }
 
 // Function to handle GET requests
-export async function get<T = any>(
-    url: string,
-    params?: any
-): Promise<ApiResponse<T>> {
+export async function get<T = any>(url: string, params?: any): Promise<ApiResponse<T>> {
     try {
         const response = await api.get<T>(url, { params });
         return {
@@ -43,10 +39,7 @@ export async function get<T = any>(
     }
 }
 
-export async function remove<T = any>(
-    url: string,
-    params?: any
-): Promise<ApiResponse<T>> {
+export async function remove<T = any>(url: string, params?: any): Promise<ApiResponse<T>> {
     try {
         const response = await api.delete<T>(url, { params });
         return {
@@ -62,10 +55,7 @@ export async function remove<T = any>(
 }
 
 // Function to handle POST requests
-export async function post<T = any>(
-    url: string,
-    data?: any
-): Promise<ApiResponse<T>> {
+export async function post<T = any>(url: string, data?: any): Promise<ApiResponse<T>> {
     try {
         const response = await api.post<T>(url, data);
         return {

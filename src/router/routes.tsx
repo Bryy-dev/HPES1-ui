@@ -6,7 +6,7 @@ const RequestForm = lazy(() => import('../pages/issuance/Issuance'));
 const LearningModules = lazy(() => import('../pages/modules/Modules'));
 const OrganizationalChart = lazy(() => import('../pages/organizational-chart/OrganizationalChart'));
 const History = lazy(() => import('../pages/history/History'));
-
+const BrigadaForm = lazy(() => import('../pages/issuance/brigadaForm'));
 const routes = [
     // dashboard
     {
@@ -27,6 +27,11 @@ const routes = [
     {
         path: '/Issuance/Form',
         element: <RequestForm />,
+        layout: 'default',
+    },
+    {
+        path: '/Issuance/Brigada/Form',
+        element: <BrigadaForm />,
         layout: 'default',
     },
     {
