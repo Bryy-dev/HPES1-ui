@@ -246,7 +246,7 @@
 
     /* boxed-layout */
     .boxed-layout {
-        @apply mx-auto max-w-[1550px];
+        @apply mx-auto xl:max-w-[1650px] md:max-w-[1450px];
     }
 
     .boxed-layout.vertical .sidebar,

@@ -66,17 +66,17 @@ const LandingPage: React.FC<LandingPageProps> = () => {
     }
 
     return (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 ">
             {/* Hero News Section */}
-            <section className="mb-16 panel px-12">
+            <section className="lg:mb-10 mb-5 panel sm:px-12 px-4">
                 <div className="flex items-center justify-between mb-6">
                     <div className="py-2">
-                        <h2 className="text-4xl font-black text-gray-800 dark:text-white ">
+                        <h2 className="lg:text-4xl text-2xl font-black text-gray-800 dark:text-white ">
                             <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Latest News</span>
                         </h2>
                     </div>
                     <div className="flex space-x-2">
-                        <button className="swiper-button-prev-news bg-indigo-600 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-indigo-700 transition-colors">
+                        <button className="swiper-button-prev-news border-2 text-dark  rounded-full w-10 h-10 flex items-center justify-center hover:bg-indigo-700 hover:text-white transition-colors">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"
@@ -91,7 +91,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                                 <path d="M15 18l-6-6 6-6" />
                             </svg>
                         </button>
-                        <button className="swiper-button-next-news bg-indigo-600 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-indigo-700 transition-colors">
+                        <button className="swiper-button-next-news bg-white border-2 text-dark  rounded-full w-10 h-10 flex items-center justify-center hover:bg-indigo-700 hover:text-white transition-colors">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"
@@ -109,7 +109,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                     </div>
                 </div>
 
-                <div className="rounded-3xl overflow-hidden shadow-xl">
+                <div className="rounded-xl overflow-hidden shadow-xl">
                     <Swiper
                         modules={[Navigation, Pagination, Autoplay, EffectFade]}
                         navigation={{
@@ -126,7 +126,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                             disableOnInteraction: false,
                         }}
                         loop={true}
-                        className="h-96 md:h-[32rem]"
+                        className="h-[25rem] md:h-[40rem]"
                     >
                         {apiData?.data.slice(0, 5).map((item, i) => {
                             const date = new Date(item.date).toLocaleDateString('en-US', {
@@ -139,7 +139,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                                     <div className="relative h-full w-full group">
                                         {/* Image */}
                                         <div className="absolute inset-0">
-                                            <img src={item.url} className="h-full w-full object-cover" alt={`News item ${i + 1}`} />
+                                            <img src={item.url} className="w-full h-full object-cover object-center" alt={`News item ${i + 1}`} />
                                             {/* Gradient overlay */}
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10"></div>
                                         </div>
@@ -147,8 +147,8 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                                         {/* Content */}
                                         <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white">
                                             <div className="inline-block px-3 py-1 mb-4 text-xs font-semibold bg-indigo-600 rounded-full">{date}</div>
-                                            <h3 className="text-2xl md:text-3xl font-bold mb-2 line-clamp-2">{item.title || `Featured News ${i + 1}`}</h3>
-                                            <p className="text-sm md:text-base text-gray-200 line-clamp-2 mb-4 max-w-2xl">
+                                            <h3 className="text-base md:text-3xl font-bold mb-2 line-clamp-2">{item.title || `Featured News ${i + 1}`}</h3>
+                                            <p className="text-xs md:text-base text-gray-200 line-clamp-2 mb-4 max-w-2xl">
                                                 {item.description || 'Click to read more about this important announcement and stay updated with the latest campus news.'}
                                             </p>
                                             <button className="px-5 py-2 bg-white text-indigo-700 rounded-lg font-medium text-sm hover:bg-gray-100 transition transform group-hover:translate-x-1">
@@ -169,7 +169,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                 <section className="lg:col-span-5">
                     <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-md overflow-hidden">
                         <div className="px-6 py-5">
-                            <h2 className="text-2xl font-black text-gray-800 dark:text-white ">
+                            <h2 className="lg:text-2xl md:text-xl sm:text-lg text-xl font-black text-gray-800 dark:text-white sm:text-start text-center">
                                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Upcoming Events</span>
                             </h2>
                         </div>

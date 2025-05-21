@@ -20,9 +20,9 @@ const NewsAndEvents: React.FC<NewsAndEventProps> = () => {
     });
 
     return (
-        <div className="w-full px-4 py-8 bg-gray-50 dark:bg-gray-900 rounded-xl panel">
-            <div className="mb-10 py-2">
-                <h2 className="text-4xl font-black text-gray-800 dark:text-white ">
+        <div className="w-full px-8 lg:py-8 bg-gray-50 dark:bg-gray-900 rounded-xl xl:panel">
+            <div className="lg:mb-10 mb-4 py-2">
+                <h2 className="lg:text-4xl text-2xl font-black text-gray-800 dark:text-white">
                     <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">News & Events</span>
                 </h2>
             </div>
