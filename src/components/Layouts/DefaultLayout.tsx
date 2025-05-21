@@ -75,7 +75,7 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
                 </div>
 
                 {/* BEGIN APP SETTING LAUNCHER */}
-                <Setting />
+                {/* <Setting /> */}
                 {/* END APP SETTING LAUNCHER */}
 
                 <div className={`${themeConfig.navbar} main-container text-black dark:text-white-dark min-h-screen`}>
@@ -90,7 +90,7 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
 
                         {/* BEGIN CONTENT AREA */}
                         <Suspense>
-                            <div className={`${themeConfig.animation} p-6 animate__animated`}>{children}</div>
+                            <div className={`${themeConfig.animation} lg:p-6 py-7 animate__animated`}>{children}</div>
                         </Suspense>
                         {/* END CONTENT AREA */}
 
