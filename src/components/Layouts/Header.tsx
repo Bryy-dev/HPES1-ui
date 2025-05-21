@@ -15,40 +15,52 @@ const Header = () => {
     return (
         <header className="z-40 shadow-md">
             <div className="bg-gradient-to-r from-cyan-600 to-cyan-500">
-                <div className="relative flex justify-between items-center px-5 py-5">
+                <div className="relative flex justify-between items-center lg:px-5 px-2 py-3">
                     {/* Sidebar Toggle Button */}
                     {/* Left: Logo and Title */}
-                    <div className=" flex gap-2">
-                        {/* <button
-                            className="rounded-full bg-white/10 p-2 text-white hover:bg-cyan-700 transition-all duration-300 focus:outline-none flex items-center justify-center fadeInLeft"
-                            onClick={() => dispatch(toggleSidebar())}
-                        >
-                            <FontAwesomeIcon icon={faAlignLeft} size="lg" />
-                        </button> */}
-                        <Link to="/" className="flex items-center gap-3">
-                            <img className="w-20 h-20 object-contain" src="/assets/images/hpes-logo.png" alt="logo" />
-                            <div className="hidden md:block">
-                                <h1 className="text-2xl font-black text-white leading-tight">Hen Pio Del Pilar Elementary School 1</h1>
-                                <p className="text-lg text-white/90">Division Of City Schools Makati</p>
+
+                    <div className=" flex items-center gap-2">
+                        <div className="lg:hidden inline">
+                            <button
+                                className="rounded-full h-12 bg-white/10 px-3 text-white hover:bg-cyan-700 transition-all duration-300 focus:outline-none flex items-center justify-center fadeInLeft"
+                                onClick={() => dispatch(toggleSidebar())}
+                            >
+                                <FontAwesomeIcon icon={faAlignLeft} />
+                            </button>
+                        </div>
+                        <Link to="/" className=" items-center gap-3 hidden md:flex">
+                            <img className="lg:w-20 lg:h-20 w-14 h-14 object-contain" src="/assets/images/hpes-logo.png" alt="logo" />
+                            <div className="">
+                                <h1 className="text-xl font-black text-white leading-tight">Hen Pio Del Pilar Elementary School 1</h1>
+                                <p className="text-sm text-white/90 font-bold">Division Of City Schools Makati</p>
                             </div>
                         </Link>
+
+                        <div className="lg:hidden inline">
+                            <h1 className="text-sm font-black text-white leading-tight">Hen Pio Del Pilar Elementary School 1</h1>
+
+                            <p className="text-xs text-white/90">LEAD.INNOVATE.TRANSFORM</p>
+                        </div>
                     </div>
 
                     {/* Right: SDO Logo and Motto */}
-                    <div className="flex items-center gap-4">
-                        <div className="hidden md:block text-right text-white font-bold text-sm">
+                    <div className="items-center gap-4 lg:flex hidden">
+                        <div className="text-xs hidden md:block text-right text-white font-bold text-sm">
                             <p className="">LEAD.INNOVATE.TRANSFORM</p>
                             <p className="">TATAK PRIMERO</p>
                             <p className="">TATAK MAKATIZEN</p>
                         </div>
-                        <img className="w-20 h-20 object-contain" src="/assets/images/sdo-logo.png" alt="sdo-logo" />
+                        <img className="lg:w-20 lg:h-20 w-14 h-14 object-contain" src="/assets/images/sdo-logo.png" alt="sdo-logo" />
+                    </div>
+                    <div className="flex items-center gap-4 lg:hidden inline">
+                        <img className="lg:w-20 lg:h-20 w-14 h-14 object-contain" src="/assets/images/hpes-logo.png" alt="sdo-logo" />
                     </div>
                 </div>
             </div>
 
             {/* Navigation Menu */}
             <nav className="bg-white border-t border-cyan-100 shadow-sm">
-                <div className="container mx-auto px-4">
+                <div className="px-5">
                     <ul className=" hidden lg:flex py-1 space-x-3 font-medium text-gray-700">
                         <li>
                             <NavLink
