@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { showPromiseNotification } from '../../components/notifications/notifications';
 import ModuleService from '../../services/moduleService';
@@ -6,6 +6,7 @@ import { modulesData } from '../../data/moduleSample';
 
 // Import modern icons
 import { Download, Search, ChevronLeft, ChevronRight, BookOpen, Calendar, Filter } from 'lucide-react';
+import { ModuleModel } from '../../models/moduleModel';
 
 interface ModulesProps {}
 
@@ -17,6 +18,8 @@ const Modules: React.FC<ModulesProps> = () => {
         subject: '',
         week: '',
     });
+
+    const [moduleData, setModuleData] = useState<ModuleModel[]>();
 
     const totalPages = Math.ceil(modulesData.length / ITEMS_PER_PAGE);
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -40,6 +43,12 @@ const Modules: React.FC<ModulesProps> = () => {
         queryFn: () => apiService.fetch(),
         staleTime: 0,
     });
+
+    useEffect(() => {
+        if (apiData?.data) {
+            setModuleData(apiData.data);
+        }
+    }, [apiData?.data]);
 
     const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -182,16 +191,16 @@ const Modules: React.FC<ModulesProps> = () => {
                         <div className="flex justify-center py-12">
                             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
                         </div>
-                    ) : apiData?.data.length === 0 ? (
+                    ) : moduleData?.length === 0 ? (
                         <div className="text-center py-12 text-gray-500 dark:text-gray-400">
                             <BookOpen className="mx-auto h-12 w-12 mb-4 opacity-30" />
                             <p className="text-lg font-medium">No modules found</p>
                             <p className="text-sm">Try adjusting your filters to find what you're looking for</p>
                         </div>
                     ) : (
-                        apiData?.data.map((item) => (
+                        moduleData?.map((item, index) => (
                             <div
-                                key={item.id}
+                                key={index}
                                 className="bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl p-5 shadow-sm hover:shadow-md transition-all transform hover:translate-y-px"
                             >
                                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
