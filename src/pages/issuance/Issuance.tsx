@@ -10,12 +10,9 @@ import { Field, Form, Formik } from 'formik';
 interface IssuanceProps {}
 
 const IssuancePage: React.FC<IssuanceProps> = ({}) => {
-    const [show, setShow] = useState(false);
     const [selectedData, setSelectedData] = useState<DocumentModel>(documentInitialState);
-    const [prepareId, setPrepareId] = useState<number>();
-    const [rejectId, setRejectId] = useState<number>();
-    const [textToSearch, setTextToSearch] = useState<string>('');
     const documentService = DocumentService();
+
     const { mutateAsync: insert } = useMutation({
         mutationKey: [''],
         mutationFn: (data: DocumentModel) => documentService.insert(data),

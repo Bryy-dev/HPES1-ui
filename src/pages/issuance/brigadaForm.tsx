@@ -22,6 +22,7 @@ const BrigadaForm: React.FC<DocumentsProps> = ({}) => {
         mutationFn: (data: any) => brigadaService.insert(data),
         onSuccess: () => {
             close();
+            setFormData(brigadaInitialState);
         },
     });
 
