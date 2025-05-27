@@ -7,6 +7,7 @@ import { modulesData } from '../../data/moduleSample';
 // Import modern icons
 import { Download, Search, ChevronLeft, ChevronRight, BookOpen, Calendar, Filter } from 'lucide-react';
 import { ModuleModel } from '../../models/moduleModel';
+import { dateToString } from '../../components/helper/dateFormmater';
 
 interface ModulesProps {}
 
@@ -39,9 +40,8 @@ const Modules: React.FC<ModulesProps> = () => {
         refetch: refetchApiData,
         isLoading,
     } = useQuery({
-        queryKey: ['api'],
+        queryKey: ['apiModules'],
         queryFn: () => apiService.fetch(),
-        staleTime: 0,
     });
 
     useEffect(() => {
@@ -216,13 +216,7 @@ const Modules: React.FC<ModulesProps> = () => {
 
                                         <div className="flex items-center gap-1 mt-2 text-xs text-gray-500 dark:text-gray-400">
                                             <Calendar className="h-3 w-3" />
-                                            <span>
-                                                {new Date(item.discussion_date).toLocaleDateString('en-US', {
-                                                    year: 'numeric',
-                                                    month: 'long',
-                                                    day: 'numeric',
-                                                })}
-                                            </span>
+                                            <span>{dateToString(item.discussion_date)}</span>
                                         </div>
                                     </div>
 
@@ -243,7 +237,7 @@ const Modules: React.FC<ModulesProps> = () => {
                     )}
                 </div>
 
-                {apiData && apiData?.data.length > 0 && (
+                {moduleData && moduleData?.length > 0 && (
                     <div className="flex justify-center mt-8">
                         <nav className="flex items-center space-x-1">
                             <button

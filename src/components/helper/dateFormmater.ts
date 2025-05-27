@@ -6,7 +6,8 @@ export const formatDate = (dateString: string) => {
     return `${year}-${month}-${day}`;
 };
 
-export const dateToString = (date_upload: string | Date): string => {
+export const dateToString = (date_upload: string | undefined): string => {
+    if (!date_upload) return '';
     return new Date(date_upload).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',

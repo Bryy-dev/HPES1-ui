@@ -699,3 +699,14 @@
 pre.hljs {
     @apply p-6 rounded-md overflow-x-auto !bg-[#191e3a];
 }
+@media (max-width: 640px) {
+    .fc-popover {
+        max-width: 80vw !important;
+        width: 80vw !important;
+    }
+
+    .fc-popover .fc-popover-body {
+        max-height: 50vh;
+        overflow-y: auto;
+    }
+}

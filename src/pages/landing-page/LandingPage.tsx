@@ -11,10 +11,12 @@ import 'swiper/css/effect-fade';
 import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
 import { useQuery } from '@tanstack/react-query';
 import NewsAndEventsService from '../../services/newsAndEvent';
+import { useNavigate } from 'react-router-dom';
 
 interface LandingPageProps {}
 
 const LandingPage: React.FC<LandingPageProps> = () => {
+    const navigate = useNavigate();
     const apiService = NewsAndEventsService();
     const events = [
         // Regular Holidays
@@ -57,7 +59,23 @@ const LandingPage: React.FC<LandingPageProps> = () => {
         staleTime: 0,
     });
 
-    if (isLoading) {
+    const { data: apiCalendarData, isLoading: isLoadingCalendar } = useQuery({
+        queryKey: ['api2'],
+        queryFn: () => apiService.getCalendarEvent(),
+        staleTime: 0,
+    });
+
+    console.log(apiData?.data);
+    const calendarEvent = apiData?.data
+        .filter((item) => item.type === 'event')
+        .map((item, index) => {
+            return {
+                title: item.title,
+                date: item.date,
+            };
+        });
+
+    if (isLoading || isLoadingCalendar) {
         return (
             <div className="min-h-screen flex items-center justify-center">
                 <div className="w-16 h-16 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
@@ -151,7 +169,10 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                                             <p className="text-xs md:text-base text-gray-200 line-clamp-2 mb-4 max-w-2xl">
                                                 {item.description || 'Click to read more about this important announcement and stay updated with the latest campus news.'}
                                             </p>
-                                            <button className="px-5 py-2 bg-white text-indigo-700 rounded-lg font-medium text-sm hover:bg-gray-100 transition transform group-hover:translate-x-1">
+                                            <button
+                                                className="px-5 py-2 bg-white text-indigo-700 rounded-lg font-medium text-sm hover:bg-gray-100 transition transform group-hover:translate-x-1"
+                                                onClick={() => navigate('News&Events')}
+                                            >
                                                 Read More
                                             </button>
                                         </div>
@@ -264,7 +285,9 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                                     <path d="M15 18l-6-6 6-6" />
                                 </svg>
                             </button>
-                            <button className="text-indigo-600 text-sm font-medium hover:underline">View All Events</button>
+                            <button className="text-indigo-600 text-sm font-medium hover:underline" onClick={() => navigate('News&Events')}>
+                                View All Events
+                            </button>
                             <button className="swiper-button-next-events text-gray-500 hover:text-indigo-600">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -300,14 +323,17 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                                 headerToolbar={{
                                     left: 'prev,next today',
                                     center: 'title',
-                                    right: 'dayGridMonth,timeGridWeek',
+                                    right: 'dayGridMonth',
                                 }}
                                 height={450}
-                                events={events}
-                                eventClassNames="rounded-lg"
-                                dayMaxEventRows={3}
-                                moreLinkContent={(arg) => `+${arg.num} more`}
-                                moreLinkClassNames={['px-2', 'py-0.5', 'rounded-full', 'bg-indigo-100', 'text-indigo-700', 'text-xs', 'font-medium', 'hover:bg-indigo-200']}
+                                events={apiCalendarData?.data}
+                                eventClassNames="rounded-lg px-2"
+                                dayMaxEventRows={0}
+                                moreLinkContent={(arg) => `${arg.num === 1 ? 'Event' : 'Events'} (${arg.num})`}
+                                moreLinkClassNames={['', 'py-0.5', 'rounded-full', 'bg-cyan-200', 'text-indigo-700', 'text-xs', 'font-medium', 'hover:bg-indigo-200']}
+                                moreLinkClick={(arg) => {
+                                    console.log(arg);
+                                }}
                             />
                         </div>
                     </div>
