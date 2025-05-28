@@ -12,6 +12,7 @@ import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
 import { useQuery } from '@tanstack/react-query';
 import NewsAndEventsService from '../../services/newsAndEvent';
 import { useNavigate } from 'react-router-dom';
+import { slugify } from '../../components/helper/slugify';
 
 interface LandingPageProps {}
 
@@ -152,6 +153,8 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                                 month: 'long',
                                 day: 'numeric',
                             });
+                            const slugified = slugify(item.title);
+
                             return (
                                 <SwiperSlide key={i}>
                                     <div className="relative h-full w-full group">
@@ -171,7 +174,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                                             </p>
                                             <button
                                                 className="px-5 py-2 bg-white text-indigo-700 rounded-lg font-medium text-sm hover:bg-gray-100 transition transform group-hover:translate-x-1"
-                                                onClick={() => navigate('News&Events')}
+                                                onClick={() => navigate(`/event/${item.id}/${slugified}`)}
                                             >
                                                 Read More
                                             </button>
@@ -191,7 +194,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                     <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-md overflow-hidden">
                         <div className="px-6 py-5">
                             <h2 className="lg:text-2xl md:text-xl sm:text-lg text-xl font-black text-gray-800 dark:text-white sm:text-start text-center">
-                                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Upcoming Events</span>
+                                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Events</span>
                             </h2>
                         </div>
 
@@ -214,57 +217,60 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                                 slidesPerView={1}
                                 className="event-swiper rounded-2xl overflow-hidden"
                             >
-                                {apiData?.data.slice(0, 5).map((item, i) => {
-                                    const eventDate = new Date(item.date);
-                                    const formattedDate = eventDate.toLocaleDateString('en-US', {
-                                        month: 'short',
-                                        day: 'numeric',
-                                    });
-                                    const year = eventDate.getFullYear();
+                                {apiData?.data
+                                    .slice(0, 5)
+                                    .filter((data) => data.type === 'event')
+                                    .map((item, i) => {
+                                        const eventDate = new Date(item.date);
+                                        const formattedDate = eventDate.toLocaleDateString('en-US', {
+                                            month: 'short',
+                                            day: 'numeric',
+                                        });
+                                        const year = eventDate.getFullYear();
 
-                                    return (
-                                        <SwiperSlide key={i}>
-                                            <div className="relative rounded-2xl overflow-hidden group">
-                                                {/* Event card with modern design */}
-                                                <div className="h-80 relative">
-                                                    <img src={item.url} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" alt={`Event ${i + 1}`} />
-                                                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
-                                                </div>
+                                        return (
+                                            <SwiperSlide key={i}>
+                                                <div className="relative rounded-2xl overflow-hidden group">
+                                                    {/* Event card with modern design */}
+                                                    <div className="h-80 relative">
+                                                        <img src={item.url} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" alt={`Event ${i + 1}`} />
+                                                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                                                    </div>
 
-                                                {/* Date badge */}
-                                                <div className="absolute top-4 left-4 bg-white rounded-lg overflow-hidden shadow-lg">
-                                                    <div className="bg-indigo-600 text-white text-center py-1 px-3 text-xs font-bold">{year}</div>
-                                                    <div className="py-2 px-3 text-center">
-                                                        <span className="block text-lg font-bold text-gray-900">{formattedDate}</span>
+                                                    {/* Date badge */}
+                                                    <div className="absolute top-4 left-4 bg-white rounded-lg overflow-hidden shadow-lg">
+                                                        <div className="bg-indigo-600 text-white text-center py-1 px-3 text-xs font-bold">{year}</div>
+                                                        <div className="py-2 px-3 text-center">
+                                                            <span className="block text-lg font-bold text-gray-900">{formattedDate}</span>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Content */}
+                                                    <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
+                                                        <h3 className="text-xl font-bold mb-2">{item.title || `Featured Event ${i + 1}`}</h3>
+                                                        <p className="text-sm text-gray-200 line-clamp-2 mb-3">{item.description || "Join us for this exciting campus event. Don't miss out!"}</p>
+                                                        <div className="flex items-center text-xs">
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                width="16"
+                                                                height="16"
+                                                                viewBox="0 0 24 24"
+                                                                fill="none"
+                                                                stroke="currentColor"
+                                                                strokeWidth="2"
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                                className="mr-1"
+                                                            >
+                                                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                                            </svg>
+                                                            <span>Campus Center</span>
+                                                        </div>
                                                     </div>
                                                 </div>
-
-                                                {/* Content */}
-                                                <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-                                                    <h3 className="text-xl font-bold mb-2">{item.title || `Featured Event ${i + 1}`}</h3>
-                                                    <p className="text-sm text-gray-200 line-clamp-2 mb-3">{item.description || "Join us for this exciting campus event. Don't miss out!"}</p>
-                                                    <div className="flex items-center text-xs">
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            width="16"
-                                                            height="16"
-                                                            viewBox="0 0 24 24"
-                                                            fill="none"
-                                                            stroke="currentColor"
-                                                            strokeWidth="2"
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                            className="mr-1"
-                                                        >
-                                                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                                                        </svg>
-                                                        <span>Campus Center</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </SwiperSlide>
-                                    );
-                                })}
+                                            </SwiperSlide>
+                                        );
+                                    })}
                             </Swiper>
                         </div>
 
@@ -316,23 +322,26 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Academic Calendar</span>
                             </h2>
                         </div>
-                        <div className="p-4">
+                        <div className="calendar-wrapper px-4 text-dark">
                             <FullCalendar
                                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                                 initialView="dayGridMonth"
                                 headerToolbar={{
-                                    left: 'prev,next today',
-                                    center: 'title',
-                                    right: 'dayGridMonth',
+                                    left: `${window.innerWidth > 768 ? 'prev,next today' : 'title'}`,
+                                    center: `${window.innerWidth < 768 ? 'prev,next today' : 'title'}`,
+                                    right: `${window.innerWidth > 768 ? 'dayGridMonth' : ''}`,
                                 }}
-                                height={450}
+                                // height={450}
                                 events={apiCalendarData?.data}
+                                displayEventTime={false}
                                 eventClassNames="rounded-lg px-2"
                                 dayMaxEventRows={0}
                                 moreLinkContent={(arg) => `${arg.num === 1 ? 'Event' : 'Events'} (${arg.num})`}
-                                moreLinkClassNames={['', 'py-0.5', 'rounded-full', 'bg-cyan-200', 'text-indigo-700', 'text-xs', 'font-medium', 'hover:bg-indigo-200']}
-                                moreLinkClick={(arg) => {
-                                    console.log(arg);
+                                moreLinkClassNames={['px-3', 'py-1', 'rounded-full', 'bg-cyan-200', 'text-gray-900', 'text-xs', 'font-bold', 'hover:bg-indigo-200']}
+                                eventClick={(info) => {
+                                    const eventId = info.event.id;
+                                    const slugified = slugify(info.event._def.title);
+                                    navigate(`/event/${eventId}/${slugified}`);
                                 }}
                             />
                         </div>

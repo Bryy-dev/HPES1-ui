@@ -11,6 +11,9 @@ const NewsAndEventsService = () => {
     const getNewsAndEvents = async (): Promise<ApiResponse<NewsAndEventsModel[]>> => {
         return get<NewsAndEventsModel[]>(`${baseUrl}/`);
     };
+    const getNewsAndEventsById = async (id: number): Promise<ApiResponse<NewsAndEventsModel>> => {
+        return get<NewsAndEventsModel>(`${baseUrl}/${id}`);
+    };
 
     const getAll = async (): Promise<ApiResponse<NewsAndEventsModel[]>> => {
         return get<NewsAndEventsModel[]>(`${baseUrl}/public`);
@@ -28,6 +31,7 @@ const NewsAndEventsService = () => {
         update,
         getAll,
         getCalendarEvent,
+        getNewsAndEventsById,
     };
 };
 export default NewsAndEventsService;

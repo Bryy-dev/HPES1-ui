@@ -49,7 +49,8 @@
         "react-toastify": "^11.0.5",
         "swiper": "^11.1.9",
         "web-vitals": "^4.2.3",
-        "yup": "^1.4.0"
+        "yup": "^1.4.0",
+        "yet-another-react-lightbox": "^3.21.3"
     },
     "devDependencies": {
         "@loadable/webpack-plugin": "^5.15.2",

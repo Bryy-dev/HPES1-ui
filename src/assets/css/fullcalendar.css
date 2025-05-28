@@ -62,15 +62,15 @@
     text-transform: capitalize !important;
     font-weight: 500 !important;
     border-radius: 6px !important;
-    padding: 5px 20px !important;
+    padding: 8px 15px !important;
 }
 
 .ltr .calendar-wrapper .fc-button {
-    margin-left: 10px !important;
+    margin-left: 12px !important;
 }
 
 .rtl .calendar-wrapper .fc-button {
-    margin-right: 10px !important;
+    margin-right: 12px !important;
 }
 
 .ltr .calendar-wrapper .fc-button-group .fc-button:first-child {
@@ -151,7 +151,7 @@
     color: rgb(75, 85, 99) !important;
     border: 2px solid !important;
     border-color: rgb(229, 231, 235) !important;
-    padding: 4px !important;
+    padding: 6px !important;
     display: flex !important;
     justify-content: center;
 }
@@ -203,7 +203,7 @@
 }
 
 .calendar-wrapper .fc-toolbar-title {
-    font-size: 17px;
+    font-size: 20px;
 }
 
 .calendar-wrapper .fc .fc-popover {
@@ -211,8 +211,8 @@
 }
 
 .calendar-wrapper .fc-event {
-    padding: 4px 4px;
-    color: white;
+    padding: 2px 4px;
+    color: rgb(3, 3, 3);
 }
 
 .calendar-wrapper .fc-timegrid-event-harness-inset .fc-timegrid-event {
@@ -221,7 +221,7 @@
 }
 
 .calendar-wrapper .fc-event-title.fc-sticky {
-    font-weight: 700;
+    font-weight: 500;
 }
 
 .calendar-wrapper .fc-daygrid-event-dot {
@@ -248,28 +248,11 @@
 }
 
 .dark .calendar-wrapper .fc-theme-standard .fc-popover {
-  background-color: #3b3f5c;
-  border-color:  #3b3f5c;
+    background-color: #5263e0;
+    border-color: #3240b1;
 }
 
 .dark .calendar-wrapper .fc-theme-standard .fc-popover-header {
-  background-color: #0e1726;
-  color: #888ea8;
+    background-color: #0e1726;
+    color: #888ea8;
 }
-/* wrap only for x‑scrolling */
-.calendar‑outer {
-    overflow-x: auto;
-  }
-  
-  /* allow any popovers to spill out */
-  .calendar‑wrapper {
-    overflow: visible;          /* popovers won’t be clipped */
-    position: relative;         /* keeps calendar positioned */
-  }
-  
-  /* still scroll the grid itself vertically if you want */
-  .calendar‑wrapper .fc-view-harness-active {
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-  

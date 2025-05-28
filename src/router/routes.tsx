@@ -7,6 +7,8 @@ const LearningModules = lazy(() => import('../pages/modules/Modules'));
 const OrganizationalChart = lazy(() => import('../pages/organizational-chart/OrganizationalChart'));
 const History = lazy(() => import('../pages/history/History'));
 const BrigadaForm = lazy(() => import('../pages/issuance/brigadaForm'));
+
+const FullDetails = lazy(() => import('../pages/news-events/FullDetails'));
 const routes = [
     // dashboard
     {
@@ -43,6 +45,11 @@ const routes = [
     {
         path: '/AboutUs/OrganizationalChart',
         element: <OrganizationalChart />,
+        layout: 'default',
+    },
+    {
+        path: '/:type/:id/:title',
+        element: <FullDetails />,
         layout: 'default',
     },
 
