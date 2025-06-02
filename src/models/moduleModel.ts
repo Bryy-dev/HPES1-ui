@@ -9,3 +9,9 @@ export interface ModuleModel {
     description?: string;
     pdf_url?: string;
 }
+
+export interface ModuleSearchModel {
+    week?: string;
+    level?: string;
+    subject?: string;
+}

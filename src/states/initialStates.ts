@@ -1,7 +1,7 @@
 import { BrigadaModel } from '../models/brigadaModel';
 import { DocumentModel } from '../models/documentModel';
 import { GalleryModel } from '../models/galleryModel';
-import { ModuleModel } from '../models/moduleModel';
+import { ModuleModel, ModuleSearchModel } from '../models/moduleModel';
 import { NewsAndEventsModel } from '../models/news&EventsModel';
 
 export const newsAndEventsInitialState: NewsAndEventsModel = {
@@ -44,4 +44,10 @@ export const brigadaInitialState: BrigadaModel = {
     company: '',
     contact: '',
     amount: '',
+};
+
+export const moduleSearchInitialState: ModuleSearchModel = {
+    level: '',
+    subject: '',
+    week: '',
 };

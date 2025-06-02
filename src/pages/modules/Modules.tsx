@@ -1,13 +1,17 @@
 import { useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { showPromiseNotification } from '../../components/notifications/notifications';
 import ModuleService from '../../services/moduleService';
 import { modulesData } from '../../data/moduleSample';
 
 // Import modern icons
 import { Download, Search, ChevronLeft, ChevronRight, BookOpen, Calendar, Filter } from 'lucide-react';
-import { ModuleModel } from '../../models/moduleModel';
+import { ModuleModel, ModuleSearchModel } from '../../models/moduleModel';
 import { dateToString } from '../../components/helper/dateFormmater';
+import { grade_level, subjects, week } from '../../components/helper/options';
+import { Field, Form, Formik } from 'formik';
+import { moduleSearchInitialState } from '../../states/initialStates';
+import Loading from '../../components/loader';
 
 interface ModulesProps {}
 
@@ -20,11 +24,13 @@ const Modules: React.FC<ModulesProps> = () => {
         week: '',
     });
 
-    const [moduleData, setModuleData] = useState<ModuleModel[]>();
+    const [moduleData, setModuleData] = useState<ModuleModel[]>([]);
+    const [moduleSearch, setModuleSearch] = useState<ModuleSearchModel>(moduleSearchInitialState);
 
-    const totalPages = Math.ceil(modulesData.length / ITEMS_PER_PAGE);
+    const totalPages = Array.isArray(moduleData) ? Math.ceil(moduleData.length / ITEMS_PER_PAGE) : 0;
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const currentModules = modulesData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+    const currentModules = Array.isArray(moduleData) ? moduleData.slice(startIndex, startIndex + ITEMS_PER_PAGE) : [];
+    console.log(currentModules);
 
     const goToPage = (page: number) => {
         if (page >= 1 && page <= totalPages) {
@@ -41,7 +47,7 @@ const Modules: React.FC<ModulesProps> = () => {
         isLoading,
     } = useQuery({
         queryKey: ['apiModules'],
-        queryFn: () => apiService.fetch(),
+        queryFn: async () => await apiService.fetch(),
     });
 
     useEffect(() => {
@@ -58,11 +64,16 @@ const Modules: React.FC<ModulesProps> = () => {
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        // Implement filtering logic here
-        refetchApiData();
-    };
+    const { mutateAsync: search, isPending } = useMutation({
+        mutationKey: [''],
+        mutationFn: async (data: any) => await apiService.search(data),
+        onMutate: () => {},
+        onSuccess: (value: any) => {
+            setModuleData(value);
+            console.log(value);
+        },
+        onError: (error: any) => {},
+    });
 
     const download = async (data: any) => {
         const filename = `${data.week}-${data.subject}-${data.topic}-${data.level}-Module.pdf`;
@@ -103,6 +114,7 @@ const Modules: React.FC<ModulesProps> = () => {
             }
         );
     };
+    console.log(moduleData);
 
     return (
         <div className="lg:bg-white dark:bg-gray-900 p-6 rounded-xl shadow-sm px-8">
@@ -118,123 +130,137 @@ const Modules: React.FC<ModulesProps> = () => {
                         <Filter className="h-5 w-5 text-blue-600" />
                         <h3 className="font-semibold text-gray-700 dark:text-gray-200">Filter Modules</h3>
                     </div>
+                    <Formik
+                        // key={data?.id ? data.id : null}
+                        enableReinitialize
+                        initialValues={moduleSearch}
+                        // validationSchema={validationSchema}
+                        onSubmit={async (values, action) => {
+                            const filteredParams = Object.entries(values).filter(([_, v]) => v !== '');
+                            const queryString = new URLSearchParams(filteredParams).toString();
+                            console.log(queryString);
 
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div>
-                                <label className="block text-sm font-medium mb-2 text-gray-700">Grade Level</label>
-                                <select
-                                    name="gradeLevel"
-                                    value={filters.gradeLevel}
-                                    onChange={handleFilterChange}
-                                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 outline-none"
-                                >
-                                    <option value="">All Grade Levels</option>
-                                    <option value="1">Grade 1</option>
-                                    <option value="2">Grade 2</option>
-                                    <option value="3">Grade 3</option>
-                                    <option value="4">Grade 4</option>
-                                    <option value="5">Grade 5</option>
-                                    <option value="6">Grade 6</option>
-                                </select>
-                            </div>
+                            search(queryString);
+                        }}
+                    >
+                        {({ values, setFieldValue, errors, touched, isValid, isSubmitting }) => {
+                            return (
+                                <Form className="">
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                        <div>
+                                            <label className="block text-sm font-medium mb-2 text-gray-700">Grade Level</label>
+                                            <Field
+                                                name="level"
+                                                as="select"
+                                                className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 outline-none"
+                                            >
+                                                {grade_level.map((data, index) => (
+                                                    <option value={data.key} key={index}>
+                                                        {data.value}
+                                                    </option>
+                                                ))}
+                                            </Field>
+                                        </div>
 
-                            <div>
-                                <label className="block text-sm font-medium mb-2 text-gray-700">Subject</label>
-                                <select
-                                    name="subject"
-                                    value={filters.subject}
-                                    onChange={handleFilterChange}
-                                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 outline-none"
-                                >
-                                    <option value="">All Subjects</option>
-                                    <option value="Mathematics">Mathematics</option>
-                                    <option value="Filipino">Filipino</option>
-                                    <option value="Araling Panlipunan">Araling Panlipunan</option>
-                                    <option value="TLE">TLE</option>
-                                    <option value="MAPEH">MAPEH</option>
-                                </select>
-                            </div>
+                                        <div>
+                                            <label className="block text-sm font-medium mb-2 text-gray-700">Subject</label>
+                                            <Field
+                                                name="subject"
+                                                as="select"
+                                                className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 outline-none"
+                                            >
+                                                {subjects.map((data, index) => (
+                                                    <option value={data.key} key={index}>
+                                                        {data.value}
+                                                    </option>
+                                                ))}
+                                            </Field>
+                                        </div>
 
-                            <div>
-                                <label className="block text-sm font-medium mb-2 text-gray-700">Week</label>
-                                <select
-                                    name="week"
-                                    value={filters.week}
-                                    onChange={handleFilterChange}
-                                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 outline-none"
-                                >
-                                    <option value="">All Weeks</option>
-                                    <option value="WEEK 1">WEEK 1</option>
-                                    <option value="WEEK 2">WEEK 2</option>
-                                    <option value="WEEK 3">WEEK 3</option>
-                                    <option value="WEEK 4">WEEK 4</option>
-                                    <option value="WEEK 5">WEEK 5</option>
-                                </select>
-                            </div>
-                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium mb-2 text-gray-700">Week</label>
+                                            <Field
+                                                name="week"
+                                                as="select"
+                                                className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 outline-none"
+                                            >
+                                                {week.map((data, index) => (
+                                                    <option value={data.key} key={index}>
+                                                        {data.value}
+                                                    </option>
+                                                ))}
+                                            </Field>
+                                        </div>
+                                    </div>
 
-                        <div className="flex justify-end items-center">
-                            <button
-                                type="submit"
-                                className="px-4 py-2 text-gray-600 bg-gray-50 border hover:bg-gray-100 rounded-lg transition-colors duration-200 text-sm font-medium flex items-center"
-                            >
-                                <Search className="h-4 w-4" />
-                                <span className="ps-1 pt-0.5">Filter Results</span>
-                            </button>
-                        </div>
-                    </form>
+                                    <div className="flex justify-end items-center">
+                                        <button
+                                            type="submit"
+                                            className="px-4 py-2 text-gray-600 bg-gray-50 border hover:bg-gray-100 rounded-lg transition-colors duration-200 text-sm font-medium flex items-center"
+                                        >
+                                            <Search className="h-4 w-4" />
+                                            <span className="ps-1 pt-0.5">Filter Results</span>
+                                        </button>
+                                    </div>
+                                </Form>
+                            );
+                        }}
+                    </Formik>
                 </div>
 
                 <div id="results-container" className="space-y-4">
-                    {isLoading ? (
+                    {isLoading && (
                         <div className="flex justify-center py-12">
                             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
                         </div>
-                    ) : moduleData?.length === 0 ? (
+                    )}
+
+                    {isPending && <Loading />}
+
+                    {currentModules?.length === 0 && (
                         <div className="text-center py-12 text-gray-500 dark:text-gray-400">
                             <BookOpen className="mx-auto h-12 w-12 mb-4 opacity-30" />
                             <p className="text-lg font-medium">No modules found</p>
                             <p className="text-sm">Try adjusting your filters to find what you're looking for</p>
                         </div>
-                    ) : (
-                        moduleData?.map((item, index) => (
-                            <div
-                                key={index}
-                                className="bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl p-5 shadow-sm hover:shadow-md transition-all transform hover:translate-y-px"
-                            >
-                                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                                    <div>
-                                        <div className="lg:flex grid items-center gap-2 mb-1">
-                                            <span className="text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 py-1 px-2 rounded-full">{item.week}</span>
-                                            <h3 className="text-lg font-bold text-blue-600 dark:text-blue-400">{item.subject}</h3>
-                                        </div>
+                    )}
 
-                                        <h4 className="font-semibold text-gray-800 dark:text-gray-200">{item.topic}</h4>
-
-                                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{item.description}</p>
-
-                                        <div className="flex items-center gap-1 mt-2 text-xs text-gray-500 dark:text-gray-400">
-                                            <Calendar className="h-3 w-3" />
-                                            <span>{dateToString(item.discussion_date)}</span>
-                                        </div>
+                    {currentModules.map((item, index) => (
+                        <div
+                            key={index}
+                            className="bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl p-5 shadow-sm hover:shadow-md transition-all transform hover:translate-y-px"
+                        >
+                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div>
+                                    <div className="lg:flex grid items-center gap-2 mb-1">
+                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 py-1 px-2 rounded-full">{item.week}</span>
+                                        <h3 className="text-lg font-bold text-blue-600 dark:text-blue-400">{item.subject}</h3>
                                     </div>
 
-                                    <div className="md:self-end">
-                                        <button
-                                            type="button"
-                                            onClick={() => download(item)}
-                                            disabled={isLoading}
-                                            className="px-4 py-2 text-white bg-gray-700 border hover:bg-blue-500 rounded-lg transition-colors duration-200 text-sm font-medium flex items-center"
-                                        >
-                                            <Download className="h-4 w-4" />
-                                            <span className="ps-1 pt-0.5">Download</span>
-                                        </button>
+                                    <h4 className="font-semibold text-gray-800 dark:text-gray-200">{item.topic}</h4>
+
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{item.description}</p>
+
+                                    <div className="flex items-center gap-1 mt-2 text-xs text-gray-500 dark:text-gray-400">
+                                        <Calendar className="h-3 w-3" />
+                                        <span>{dateToString(item.discussion_date)}</span>
                                     </div>
                                 </div>
+
+                                <div className="md:self-end">
+                                    <button
+                                        type="button"
+                                        onClick={() => download(item)}
+                                        disabled={isLoading}
+                                        className="px-4 py-2 text-white bg-gray-700 border hover:bg-blue-500 rounded-lg transition-colors duration-200 text-sm font-medium flex items-center"
+                                    >
+                                        <Download className="h-4 w-4" />
+                                        <span className="ps-1 pt-0.5">Download</span>
+                                    </button>
+                                </div>
                             </div>
-                        ))
-                    )}
+                        </div>
+                    ))}
                 </div>
 
                 {moduleData && moduleData?.length > 0 && (

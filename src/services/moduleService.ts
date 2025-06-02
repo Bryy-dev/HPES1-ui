@@ -1,4 +1,4 @@
-import { ModuleModel } from '../models/moduleModel';
+import { ModuleModel, ModuleSearchModel } from '../models/moduleModel';
 import { ApiResponse, get, post, put } from '../utils/api';
 
 const ModuleService = () => {
@@ -9,6 +9,10 @@ const ModuleService = () => {
     };
     const fetch = async (): Promise<ApiResponse<ModuleModel[]>> => {
         return get<ModuleModel[]>(`${baseUrl}/`);
+    };
+
+    const search = async (query: string): Promise<ApiResponse<ModuleSearchModel>> => {
+        return get<ModuleSearchModel>(`${baseUrl}/search?${query}`);
     };
     const update = async (data: any, id: number): Promise<ApiResponse<ModuleModel>> => {
         return put<ModuleModel>(`${baseUrl}/update/${id}`, data);
@@ -21,6 +25,7 @@ const ModuleService = () => {
         fetch,
         update,
         remove,
+        search,
     };
 };
 export default ModuleService;

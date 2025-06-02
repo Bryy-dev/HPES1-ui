@@ -12,7 +12,7 @@ const Footer = () => {
             {/* Main Footer - Compact Version */}
             <div className="bg-gradient-to-r from-cyan-600 to-cyan-500 text-white py-3">
                 <div className="container mx-auto px-5">
-                    <div className="flex flex-wrap justify-between gap-4">
+                    <div className="flex flex-wrap lg:justify-between gap-4">
                         {/* Logo and School Name */}
                         <div className="flex items-center gap-3">
                             <img className="w-12 h-12 object-contain" src="/assets/images/hpes-logo.png" alt="logo" />
@@ -26,7 +26,7 @@ const Footer = () => {
 
                         {/* Social Icons */}
                         <div className="flex items-center space-x-2">
-                            <div className="flex flex-col gap-2 text-white/90 text-xs space-x-4 border-r-2 pe-2">
+                            <div className="flex lg:flex-col gap-2 text-white/90 text-xs space-x-4 pe-2">
                                 <div className="flex items-center gap-1">
                                     <FontAwesomeIcon icon={faMapMarkerAlt} size="sm" />
                                     <span>7745 L. Facundo, Makati</span>
