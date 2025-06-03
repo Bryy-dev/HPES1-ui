@@ -12,6 +12,7 @@ import { grade_level, subjects, week } from '../../components/helper/options';
 import { Field, Form, Formik } from 'formik';
 import { moduleSearchInitialState } from '../../states/initialStates';
 import Loading from '../../components/loader';
+import { capitalizeEachWord } from '../../components/helper/capitalPerWord.';
 
 interface ModulesProps {}
 
@@ -30,7 +31,6 @@ const Modules: React.FC<ModulesProps> = () => {
     const totalPages = Array.isArray(moduleData) ? Math.ceil(moduleData.length / ITEMS_PER_PAGE) : 0;
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const currentModules = Array.isArray(moduleData) ? moduleData.slice(startIndex, startIndex + ITEMS_PER_PAGE) : [];
-    console.log(currentModules);
 
     const goToPage = (page: number) => {
         if (page >= 1 && page <= totalPages) {
@@ -69,7 +69,7 @@ const Modules: React.FC<ModulesProps> = () => {
         mutationFn: async (data: any) => await apiService.search(data),
         onMutate: () => {},
         onSuccess: (value: any) => {
-            setModuleData(value);
+            setModuleData(value.data);
             console.log(value);
         },
         onError: (error: any) => {},
@@ -114,7 +114,6 @@ const Modules: React.FC<ModulesProps> = () => {
             }
         );
     };
-    console.log(moduleData);
 
     return (
         <div className="lg:bg-white dark:bg-gray-900 p-6 rounded-xl shadow-sm px-8">
@@ -125,7 +124,7 @@ const Modules: React.FC<ModulesProps> = () => {
             </div>
 
             <div className="lg:px-40">
-                <div className="bg-cyan-500/10 dark:bg-gray-800 p-6 rounded-lg mb-8">
+                <div className="panel dark:bg-gray-800 p-6 rounded-lg mb-8">
                     <div className="flex items-center gap-2 mb-4">
                         <Filter className="h-5 w-5 text-blue-600" />
                         <h3 className="font-semibold text-gray-700 dark:text-gray-200">Filter Modules</h3>
@@ -193,13 +192,13 @@ const Modules: React.FC<ModulesProps> = () => {
                                         </div>
                                     </div>
 
-                                    <div className="flex justify-end items-center">
+                                    <div className="flex justify-end items-center py-2">
                                         <button
                                             type="submit"
                                             className="px-4 py-2 text-gray-600 bg-gray-50 border hover:bg-gray-100 rounded-lg transition-colors duration-200 text-sm font-medium flex items-center"
                                         >
                                             <Search className="h-4 w-4" />
-                                            <span className="ps-1 pt-0.5">Filter Results</span>
+                                            <span className="">Filter Results</span>
                                         </button>
                                     </div>
                                 </Form>
@@ -228,13 +227,15 @@ const Modules: React.FC<ModulesProps> = () => {
                     {currentModules.map((item, index) => (
                         <div
                             key={index}
-                            className="bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl p-5 shadow-sm hover:shadow-md transition-all transform hover:translate-y-px"
+                            className=" dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-5 shadow-md hover:shadow-lg transition-all transform hover:translate-y-px"
                         >
                             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                                <div>
+                                <div className="px-2">
                                     <div className="lg:flex grid items-center gap-2 mb-1">
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 py-1 px-2 rounded-full">{item.week}</span>
-                                        <h3 className="text-lg font-bold text-blue-600 dark:text-blue-400">{item.subject}</h3>
+                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 py-2 px-3 rounded-full">
+                                            {capitalizeEachWord(item.week)}
+                                        </span>
+                                        <h3 className="text-lg font-bold text-blue-600 dark:text-blue-400">{capitalizeEachWord(item.subject)}</h3>
                                     </div>
 
                                     <h4 className="font-semibold text-gray-800 dark:text-gray-200">{item.topic}</h4>
@@ -252,7 +253,7 @@ const Modules: React.FC<ModulesProps> = () => {
                                         type="button"
                                         onClick={() => download(item)}
                                         disabled={isLoading}
-                                        className="px-4 py-2 text-white bg-gray-700 border hover:bg-blue-500 rounded-lg transition-colors duration-200 text-sm font-medium flex items-center"
+                                        className="px-4 py-2 text-white bg-blue-400 border hover:bg-blue-500 rounded-lg transition-colors duration-200 text-sm font-medium flex items-center"
                                     >
                                         <Download className="h-4 w-4" />
                                         <span className="ps-1 pt-0.5">Download</span>
