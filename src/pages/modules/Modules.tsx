@@ -208,11 +208,7 @@ const Modules: React.FC<ModulesProps> = () => {
                 </div>
 
                 <div id="results-container" className="space-y-4">
-                    {isLoading && (
-                        <div className="flex justify-center py-12">
-                            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-                        </div>
-                    )}
+                    {isLoading && <Loading />}
 
                     {isPending && <Loading />}
 
