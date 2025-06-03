@@ -12,6 +12,8 @@ import Captions from 'yet-another-react-lightbox/plugins/captions';
 import 'yet-another-react-lightbox/plugins/captions.css';
 import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 import { useState } from 'react';
+import Loading from '../../components/loader';
+import ErrorMsg from '../../components/ErrorMsg';
 
 interface GalleryProps {}
 
@@ -22,10 +24,10 @@ const GaleryPage: React.FC<GalleryProps> = ({}) => {
         data: galleryData,
         refetch: refetchData,
         isLoading,
+        isError,
     } = useQuery({
         queryKey: ['gallery'],
         queryFn: () => galleryService.fetch(),
-        staleTime: 0,
     });
 
     const [open, setOpen] = useState(false);
@@ -64,13 +66,17 @@ const GaleryPage: React.FC<GalleryProps> = ({}) => {
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Gallery</span>
                     </h2>
                 </div>
-                <div className="grid xl:grid-cols-4 grid-cols-1 gap-2">
-                    {galleryData?.data.map((gallery, index) => (
-                        <div key={gallery.id} className="transform transition-transform duration-300 hover:scale-110" onClick={() => handleImageClick(gallery)}>
-                            <GalleryImageMapper title={gallery.title} description={gallery.description} date_upload={gallery.date_upload} image_url={gallery.image_url} data={gallery} />
-                        </div>
-                    ))}
-                </div>
+                {isLoading && <Loading />}
+                {isError && <ErrorMsg />}
+                {galleryData && galleryData.data && (
+                    <div className="grid xl:grid-cols-4 grid-cols-1 gap-2">
+                        {galleryData?.data.map((gallery, index) => (
+                            <div key={gallery.id} className="transform transition-transform duration-300 hover:scale-110" onClick={() => handleImageClick(gallery)}>
+                                <GalleryImageMapper title={gallery.title} description={gallery.description} date_upload={gallery.date_upload} image_url={gallery.image_url} data={gallery} />
+                            </div>
+                        ))}
+                    </div>
+                )}
 
                 {selectedImage && (
                     <Lightbox
