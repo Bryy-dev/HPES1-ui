@@ -5,7 +5,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { toggleSidebar } from '../../store/themeConfigSlice';
 import { IRootState } from '../../store';
 import { useState, useEffect } from 'react';
-import { faChartPie, faFileAlt, faBook, faImages, faNewspaper, faUserGraduate, faUsers, faChevronLeft, faHandsHoldingChild } from '@fortawesome/free-solid-svg-icons';
+import { faChartPie, faFileAlt, faBook, faImages, faNewspaper, faUserGraduate, faUsers, faChevronLeft, faHandsHoldingChild, faHandPaper, faFilePdf } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Sidebar = () => {
@@ -38,11 +38,14 @@ const Sidebar = () => {
 
     const menuItems = [
         { to: '/', label: 'Home', icon: faChartPie },
-        { to: '/Gallery', label: 'Gallery', icon: faFileAlt },
-        { to: '/News&Events', label: 'News & Events', icon: faImages },
-        { to: '/Services/LearningModules', label: 'Learning Modules', icon: faImages },
-        { to: '/Issuance/Form', label: 'Document Request Form', icon: faNewspaper },
-        { to: '/Issuance/Brigada/Form', label: 'Brigada Donor Form', icon: faHandsHoldingChild },
+        { to: '/gallery', label: 'Gallery', icon: faFileAlt },
+        { to: '/news&events', label: 'News & Events', icon: faImages },
+        { to: '/school-paper/prime-report', label: 'Prime Report', icon: faNewspaper },
+        { to: '/services/modules', label: 'Learning Modules', icon: faFilePdf },
+        { to: '/issuance/form', label: 'Document Request Form', icon: faNewspaper },
+        { to: '/issuance/brigada/form', label: 'Brigada Donor Form', icon: faHandsHoldingChild },
+        { to: '/suggestion/form', label: 'Suggestion Form', icon: faHandPaper },
+
         // { to: '/Level&Section', label: 'Grade Level & Section', icon: faUserGraduate },
         // { to: '/Users', label: 'Users', icon: faUsers },
     ];

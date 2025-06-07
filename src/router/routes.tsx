@@ -1,14 +1,15 @@
 import { lazy } from 'react';
 const LandingPage = lazy(() => import('../pages/landing-page/LandingPage'));
 const GaleryPage = lazy(() => import('../pages/gallery-page/GaleryPage'));
-const NewsAndEvents = lazy(() => import('../pages/news-events/News&Events'));
-const RequestForm = lazy(() => import('../pages/issuance/Issuance'));
-const LearningModules = lazy(() => import('../pages/modules/Modules'));
-const OrganizationalChart = lazy(() => import('../pages/organizational-chart/OrganizationalChart'));
-const History = lazy(() => import('../pages/history/History'));
-const BrigadaForm = lazy(() => import('../pages/issuance/brigadaForm'));
-
-const FullDetails = lazy(() => import('../pages/news-events/FullDetails'));
+const NewsAndEventsPage = lazy(() => import('../pages/news-events/News&Events'));
+const RequestFormPage = lazy(() => import('../pages/issuance/Issuance'));
+const ModulesPage = lazy(() => import('../pages/modules/Modules'));
+const OrganizationalChartPage = lazy(() => import('../pages/organizational-chart/OrganizationalChart'));
+const HistoryPage = lazy(() => import('../pages/history/History'));
+const BrigadaFormPage = lazy(() => import('../pages/issuance/brigadaForm'));
+const FullDetailsPage = lazy(() => import('../pages/news-events/FullDetails'));
+const SuggestionPage = lazy(() => import('../pages/suggestion'));
+const PrimeReportPage = lazy(() => import('../pages/school-paper/primeReport'));
 const routes = [
     // dashboard
     {
@@ -17,45 +18,55 @@ const routes = [
         layout: 'default',
     },
     {
-        path: '/Gallery',
+        path: '/gallery',
         element: <GaleryPage />,
         layout: 'default',
     },
     {
-        path: '/News&Events',
-        element: <NewsAndEvents />,
+        path: '/news&events',
+        element: <NewsAndEventsPage />,
         layout: 'default',
     },
     {
-        path: '/Issuance/Form',
-        element: <RequestForm />,
+        path: '/issuance/form',
+        element: <RequestFormPage />,
         layout: 'default',
     },
     {
-        path: '/Issuance/Brigada/Form',
-        element: <BrigadaForm />,
+        path: '/issuance/brigada/form',
+        element: <BrigadaFormPage />,
         layout: 'default',
     },
     {
-        path: '/Services/LearningModules',
-        element: <LearningModules />,
+        path: '/services/modules',
+        element: <ModulesPage />,
         layout: 'default',
     },
 
     {
-        path: '/AboutUs/OrganizationalChart',
-        element: <OrganizationalChart />,
+        path: '/aboutUs/organizational-chart',
+        element: <OrganizationalChartPage />,
         layout: 'default',
     },
     {
         path: '/:type/:id/:title',
-        element: <FullDetails />,
+        element: <FullDetailsPage />,
         layout: 'default',
     },
 
     {
-        path: '/AboutUs/History',
-        element: <History />,
+        path: '/aboutUs/history',
+        element: <HistoryPage />,
+        layout: 'default',
+    },
+    {
+        path: '/school-paper/prime-report',
+        element: <PrimeReportPage />,
+        layout: 'default',
+    },
+    {
+        path: '/suggestion/form',
+        element: <SuggestionPage />,
         layout: 'default',
     },
 ];

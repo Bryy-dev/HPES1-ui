@@ -5,7 +5,7 @@ import { IRootState } from '../../store';
 import { toggleSidebar } from '../../store/themeConfigSlice';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFolderOpen, faHouseChimney, faImages, faNewspaper, faPager, faInfo, faChevronDown, faBars, faAlignLeft } from '@fortawesome/free-solid-svg-icons';
+import { faFolderOpen, faHouseChimney, faImages, faNewspaper, faPager, faInfo, faChevronDown, faBars, faAlignLeft, faHandPaper } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () => {
     const location = useLocation();
@@ -76,7 +76,7 @@ const Header = () => {
 
                         <li>
                             <NavLink
-                                to="/Gallery"
+                                to="/gallery"
                                 className={({ isActive }) =>
                                     `flex items-center gap-2 py-3 px-1 hover:text-cyan-600 transition-colors border-b-2 ${isActive ? 'border-cyan-500 text-cyan-600' : 'border-transparent'}`
                                 }
@@ -88,7 +88,7 @@ const Header = () => {
 
                         <li>
                             <NavLink
-                                to="/News&Events"
+                                to="/news&events"
                                 className={({ isActive }) =>
                                     `flex items-center gap-2 py-3 px-1 hover:text-cyan-600 transition-colors border-b-2 ${isActive ? 'border-cyan-500 text-cyan-600' : 'border-transparent'}`
                                 }
@@ -96,6 +96,20 @@ const Header = () => {
                                 <FontAwesomeIcon icon={faNewspaper} className="text-cyan-500" />
                                 <span>News & Events</span>
                             </NavLink>
+                        </li>
+                        <li className="menu nav-item relative group">
+                            <button type="button" className="nav-link flex items-center gap-2 py-3 px-1 hover:text-cyan-600 transition-colors">
+                                <FontAwesomeIcon icon={faNewspaper} className="text-cyan-500" />
+                                <span>School Paper</span>
+                                <FontAwesomeIcon icon={faChevronDown} className="text-gray-400 text-xs ml-1" />
+                            </button>
+                            <ul className="sub-menu absolute left-0 top-full bg-white shadow-lg rounded-md py-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
+                                <li>
+                                    <NavLink to="/school-paper/prime-report" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
+                                        Prime Report
+                                    </NavLink>
+                                </li>
+                            </ul>
                         </li>
 
                         <li className="menu nav-item relative group">
@@ -105,14 +119,18 @@ const Header = () => {
                                 <FontAwesomeIcon icon={faChevronDown} className="text-gray-400 text-xs ml-1" />
                             </button>
                             <ul className="sub-menu absolute left-0 top-full bg-white shadow-lg rounded-md py-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
-                                <li>
+                                {/* <li>
                                     <NavLink to="https://system.hpdpes1.com/" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
                                         Learning Resources System
                                     </NavLink>
-                                </li>
+                                </li> */}
                                 <li>
-                                    <NavLink to="/Services/LearningModules" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
+                                    <NavLink to="/services/modules" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
                                         Learning Modules
+                                    </NavLink>
+
+                                    <NavLink to="/suggestion/form" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
+                                        Suggestion
                                     </NavLink>
                                 </li>
                                 {/* <li>
@@ -131,12 +149,12 @@ const Header = () => {
                             </button>
                             <ul className="sub-menu absolute left-0 top-full bg-white shadow-lg rounded-md py-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
                                 <li>
-                                    <NavLink to="/Issuance/Form" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
+                                    <NavLink to="/issuance/form" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
                                         Document Request Form
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/Issuance/Brigada/Form" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
+                                    <NavLink to="/issuance/brigada/form" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
                                         Brigada Eskwela Donor Form
                                     </NavLink>
                                 </li>
@@ -156,22 +174,22 @@ const Header = () => {
                             </button>
                             <ul className="sub-menu absolute left-0 top-full bg-white shadow-lg rounded-md py-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
                                 <li>
-                                    <NavLink to="/AboutUs/History" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
+                                    <NavLink to="/aboutUs/history" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
                                         History
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/AboutUs/OrganizationalChart" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
+                                    <NavLink to="/aboutUs/organizational-Chart" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
                                         Organizational Chart
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
+                                    <NavLink to="#" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
                                         School Hymn
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
+                                    <NavLink to="#" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
                                         School Prayers
                                     </NavLink>
                                 </li>
