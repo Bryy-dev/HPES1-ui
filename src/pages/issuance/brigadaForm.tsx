@@ -109,7 +109,6 @@ const BrigadaForm: React.FC<DocumentsProps> = ({}) => {
                                                     <Field
                                                         type="text"
                                                         name="name"
-                                                        placeholder="Enter title"
                                                         className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 outline-none"
                                                     />
                                                 </div>
@@ -118,7 +117,6 @@ const BrigadaForm: React.FC<DocumentsProps> = ({}) => {
                                                     <Field
                                                         type="text"
                                                         name="company"
-                                                        placeholder="Enter title"
                                                         className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 outline-none"
                                                     />
                                                 </div>
@@ -127,7 +125,6 @@ const BrigadaForm: React.FC<DocumentsProps> = ({}) => {
                                                     <Field
                                                         type="text"
                                                         name="email"
-                                                        placeholder="Enter title"
                                                         className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 outline-none"
                                                     />
                                                 </div>
@@ -136,7 +133,6 @@ const BrigadaForm: React.FC<DocumentsProps> = ({}) => {
                                                     <Field
                                                         type="text"
                                                         name="contact"
-                                                        placeholder="Enter title"
                                                         className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 outline-none"
                                                     />
                                                 </div>
@@ -145,7 +141,6 @@ const BrigadaForm: React.FC<DocumentsProps> = ({}) => {
                                                     <Field
                                                         type="text"
                                                         name="amount"
-                                                        placeholder="Enter title"
                                                         className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 outline-none"
                                                     />
                                                 </div>
