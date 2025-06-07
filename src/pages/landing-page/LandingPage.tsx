@@ -132,7 +132,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                             </div>
                         </div>
 
-                        <div className="rounded-xl overflow-hidden shadow-xl">
+                        <div className="rounded-xl overflow-hidden  md:px-20">
                             <Swiper
                                 modules={[Navigation, Pagination, Autoplay, EffectFade]}
                                 navigation={{
@@ -149,7 +149,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                                     disableOnInteraction: false,
                                 }}
                                 loop={true}
-                                className="h-[25rem] md:h-[35rem]"
+                                className="h-[27rem] md:h-[33rem]"
                             >
                                 {apiData?.data.slice(0, 5).map((item, i) => {
                                     const date = new Date(item.date).toLocaleDateString('en-US', {
@@ -161,10 +161,10 @@ const LandingPage: React.FC<LandingPageProps> = () => {
 
                                     return (
                                         <SwiperSlide key={i}>
-                                            <div className="relative h-full w-full group">
+                                            <div className="relative h-full w-full group ">
                                                 {/* Image */}
                                                 <div className="absolute inset-0">
-                                                    <img src={item.url} className="w-full h-full object-cover object-center" alt={`News item ${i + 1}`} />
+                                                    <img src={item.url} className="w-full h-full px-10 object-cover object-center" alt={`News item ${i + 1}`} />
                                                     {/* Gradient overlay */}
                                                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10"></div>
                                                 </div>
@@ -194,8 +194,8 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                     {/* Two Column Layout */}
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                         {/* Events Section */}
-                        <section className="lg:col-span-5">
-                            <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-md overflow-hidden">
+                        <section className="lg:col-span-5  flex flex-col gap-2">
+                            <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-md overflow-hidden border">
                                 <div className="px-6 py-5">
                                     <h2 className="lg:text-2xl md:text-xl sm:text-lg text-xl font-black text-gray-800 dark:text-white sm:text-start text-center">
                                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Events</span>
@@ -321,50 +321,14 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                                     </button>
                                 </div>
                             </div>
-                        </section>
 
-                        {/* Right Column: Calendar and Downloadables */}
-                        <section className="lg:col-span-7 space-y-8">
-                            {/* Calendar */}
-                            <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-md overflow-hidden">
-                                <div className="px-6 py-5">
-                                    <h2 className="text-2xl font-black text-gray-800 dark:text-white ">
-                                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Academic Calendar</span>
-                                    </h2>
-                                </div>
-                                <div className="calendar-wrapper px-4 text-dark">
-                                    <FullCalendar
-                                        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-                                        initialView="dayGridMonth"
-                                        headerToolbar={{
-                                            left: `${window.innerWidth > 768 ? 'prev,next today' : 'title'}`,
-                                            center: `${window.innerWidth < 768 ? 'prev,next today' : 'title'}`,
-                                            right: `${window.innerWidth > 768 ? 'dayGridMonth' : ''}`,
-                                        }}
-                                        // height={450}
-                                        events={apiCalendarData?.data}
-                                        displayEventTime={false}
-                                        eventClassNames="rounded-lg px-2"
-                                        dayMaxEventRows={0}
-                                        moreLinkContent={(arg) => `${arg.num === 1 ? 'Event' : 'Events'} (${arg.num})`}
-                                        moreLinkClassNames={['px-3', 'py-1', 'rounded-full', 'bg-cyan-200', 'text-gray-900', 'text-xs', 'font-bold', 'hover:bg-indigo-200']}
-                                        eventClick={(info) => {
-                                            const eventId = info.event.id;
-                                            const slugified = slugify(info.event._def.title);
-                                            navigate(`/event/${eventId}/${slugified}`);
-                                        }}
-                                    />
-                                </div>
-                            </div>
-
-                            {/* Downloadables */}
-                            <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-md overflow-hidden">
-                                <div className="px-6 py-5">
+                            <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-md overflow-hidden border py-5">
+                                <div className="px-6 ">
                                     <h2 className="text-2xl font-black text-gray-800 dark:text-white ">
                                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Quick Downloads</span>
                                     </h2>
                                 </div>
-                                <div className="p-6">
+                                <div className="px-4 py-2">
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <a
                                             href="/downloads/student-handbook.pdf"
@@ -484,6 +448,43 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                                     </div>
                                 </div>
                             </div>
+                        </section>
+
+                        {/* Right Column: Calendar and Downloadables */}
+                        <section className="lg:col-span-7 space-y-8">
+                            {/* Calendar */}
+                            <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-md overflow-hidden border">
+                                <div className="px-6 py-5">
+                                    <h2 className="text-2xl font-black text-gray-800 dark:text-white ">
+                                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Academic Calendar</span>
+                                    </h2>
+                                </div>
+                                <div className="calendar-wrapper px-4 text-dark">
+                                    <FullCalendar
+                                        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                                        initialView="dayGridMonth"
+                                        headerToolbar={{
+                                            left: `${window.innerWidth > 768 ? 'prev,next today' : 'title'}`,
+                                            center: `${window.innerWidth < 768 ? 'prev,next today' : 'title'}`,
+                                            right: `${window.innerWidth > 768 ? 'dayGridMonth' : ''}`,
+                                        }}
+                                        // height={450}
+                                        events={apiCalendarData?.data}
+                                        displayEventTime={false}
+                                        eventClassNames="rounded-lg px-2"
+                                        dayMaxEventRows={0}
+                                        moreLinkContent={(arg) => `${arg.num === 1 ? 'Event' : 'Events'} (${arg.num})`}
+                                        moreLinkClassNames={['px-3', 'py-1', 'rounded-full', 'bg-cyan-200', 'text-gray-900', 'text-xs', 'font-bold', 'hover:bg-indigo-200']}
+                                        eventClick={(info) => {
+                                            const eventId = info.event.id;
+                                            const slugified = slugify(info.event._def.title);
+                                            navigate(`/event/${eventId}/${slugified}`);
+                                        }}
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Downloadables */}
                         </section>
                     </div>
                 </div>
