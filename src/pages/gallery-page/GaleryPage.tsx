@@ -27,7 +27,7 @@ const GaleryPage: React.FC<GalleryProps> = ({}) => {
         isError,
     } = useQuery({
         queryKey: ['gallery'],
-        queryFn: () => galleryService.fetch(),
+        queryFn: () => galleryService.fetchAll(),
     });
 
     const [open, setOpen] = useState(false);

@@ -27,7 +27,7 @@ const FullDetails: React.FC<FullDetailsProps> = ({}) => {
         isError,
     } = useQuery({
         queryKey: ['details'],
-        queryFn: () => newsAndEventsService.getNewsAndEventsById(id),
+        queryFn: () => newsAndEventsService.fetchById(Number(id)),
     });
 
     useEffect(() => {

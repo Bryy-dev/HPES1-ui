@@ -21,7 +21,7 @@ const IssuancePage: React.FC<IssuanceProps> = ({}) => {
         isError,
     } = useMutation({
         mutationKey: [''],
-        mutationFn: (data: DocumentModel) => documentService.insert(data),
+        mutationFn: (data: DocumentModel) => documentService.create(data),
         onMutate: () => {
             // setIsloading(!isLoading);
         },

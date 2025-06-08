@@ -62,7 +62,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
         isError,
     } = useQuery({
         queryKey: ['api'],
-        queryFn: () => apiService.getAll(),
+        queryFn: () => apiService.landingFetchAll(),
     });
 
     const {

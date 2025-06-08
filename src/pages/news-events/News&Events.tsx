@@ -20,7 +20,7 @@ const NewsAndEvents: React.FC<NewsAndEventProps> = () => {
         isError,
     } = useQuery({
         queryKey: ['listing'],
-        queryFn: () => newsAndEventsService.getNewsAndEvents(),
+        queryFn: () => newsAndEventsService.fetchAll(),
     });
     const navigate = useNavigate();
     return (

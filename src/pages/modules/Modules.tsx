@@ -47,7 +47,7 @@ const Modules: React.FC<ModulesProps> = () => {
         isLoading,
     } = useQuery({
         queryKey: ['apiModules'],
-        queryFn: async () => await apiService.fetch(),
+        queryFn: async () => await apiService.fetchAll(),
     });
 
     useEffect(() => {
