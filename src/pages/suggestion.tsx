@@ -13,12 +13,12 @@ const Suggestion: React.FC<SuggestionProps> = ({}) => {
     const [data, setData] = useState<{ name: string; email: string; suggestion: string }>({ name: '', email: '', suggestion: '' });
     const suggestionService = SuggestionService();
     const {
-        mutateAsync: insert,
+        mutateAsync: create,
         isPending,
         isError,
     } = useMutation({
         mutationKey: [''],
-        mutationFn: (data: any) => suggestionService.insert(data),
+        mutationFn: (data: any) => suggestionService.create(data),
         onSuccess: () => {
             showNotification('Form submitted successfully', 'success');
             setData({ name: '', email: '', suggestion: '' });
@@ -37,7 +37,7 @@ const Suggestion: React.FC<SuggestionProps> = ({}) => {
                 initialValues={data}
                 validationSchema={validationSchema}
                 onSubmit={async (values, action) => {
-                    insert(values);
+                    create(values);
                 }}
             >
                 {({ values, setFieldValue, errors, touched, isValid, isSubmitting, resetForm }) => {
