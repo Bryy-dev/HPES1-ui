@@ -1,8 +1,8 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
 
 // Define a base URL for your API
-const baseURL = 'http://192.168.3.27:4000/api';
-// const baseURL = 'https://server.hpdpes1.com/api/';
+// const baseURL = 'http://192.168.3.27:4000/api';
+const baseURL = 'https://server.hpdpes1.com/api/';
 // Create an instance of Axios with default configurations
 const api = axios.create({
     baseURL,
