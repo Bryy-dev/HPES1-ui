@@ -1,0 +1,1 @@
+import{g as e}from"./loader-CUZWE4u1.js";const d=()=>{const n="newsAndEvents";return{fetchAll:async()=>e(`${n}/`),landingFetchAll:async()=>e(`${n}/landing`),getCalendarEvent:async()=>e(`${n}/event/calendar`),fetchById:async t=>e(`${n}/${t}`)}};export{d as N};
