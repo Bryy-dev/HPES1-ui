@@ -1,0 +1,1 @@
+import{E as e}from"./loader-CUZWE4u1-Bc9zbGhW-DbwShRTX.js";const c=()=>{const n="newsAndEvents";return{fetchAll:async()=>e(`${n}/`),landingFetchAll:async()=>e(`${n}/landing`),getCalendarEvent:async()=>e(`${n}/event/calendar`),fetchById:async t=>e(`${n}/${t}`)}};export{c};
