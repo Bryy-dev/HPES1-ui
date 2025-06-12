@@ -22,7 +22,7 @@ const Header = () => {
                     <div className=" flex items-center gap-2">
                         <div className="lg:hidden inline">
                             <button
-                                className="rounded-full h-12 bg-white/10 px-3 text-white hover:bg-cyan-700 transition-all duration-300 focus:outline-none flex items-center justify-center fadeInLeft"
+                                className="rounded-lg h-12 bg-white/10 px-3 text-white hover:bg-cyan-700 transition-all duration-300 focus:outline-none flex items-center justify-center fadeInLeft"
                                 onClick={() => dispatch(toggleSidebar())}
                             >
                                 <FontAwesomeIcon icon={faAlignLeft} />

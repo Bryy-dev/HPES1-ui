@@ -53,38 +53,48 @@ const Sidebar = () => {
     return (
         <div className={semidark ? 'dark' : ''}>
             <nav className={`sidebar fixed top-0 h-full w-[260px] z-50 transition-all duration-300 ${semidark ? 'text-white-dark' : ''}`}>
-                <div className="h-full bg-white dark:bg-gray-900 flex flex-col shadow-lg">
-                    <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+                <div className="h-full bg-white dark:bg-gray-900 flex flex-col shadow-lg ">
+                    <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between relative ">
                         <div className="w-full flex flex-col items-center justify-center">
                             <NavLink to="/" className="flex items-center gap-2">
                                 <img className="w-28" src="/assets/images/hpes-logo.png" alt="logo" />
                             </NavLink>
-                            <h2 className="text-gray-600 gap-2 text-sm font-black uppercase">Hen Pio Del Pilar Es 1</h2>
+                            <h2 className="text-gray-600 text-sm font-black uppercase text-header mt-2">Hen Pio Del Pilar Es 1</h2>
                         </div>
-                        <button onClick={() => dispatch(toggleSidebar())} className="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white">
-                            <FontAwesomeIcon icon={faChevronLeft} size="lg" />
+                        <button
+                            onClick={() => dispatch(toggleSidebar())}
+                            className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 transition-all duration-200 absolute right-3"
+                        >
+                            <FontAwesomeIcon icon={faChevronLeft} size="sm" />
                         </button>
                     </div>
 
-                    <PerfectScrollbar className="flex-1 overflow-y-auto lg:px-4 px-2 py-4 lg:text-xl  text-xs font-black">
-                        <ul className="space-y-1 uppercase ">
+                    <PerfectScrollbar className="flex-1 overflow-y-auto px-3 py-4">
+                        <div className="space-y-1">
                             {menuItems.map(({ to, label, icon }) => (
-                                <li key={to}>
+                                <div key={to}>
                                     <NavLink
                                         to={to}
                                         className={({ isActive }) =>
-                                            `flex items-center gap-3 px-4 py-3 rounded-lg transition hover:bg-cyan-200 dark:hover:bg-gray-700 ${
-                                                isActive ? 'bg-cyan-400 dark:bg-gray-700 text-gray-800 dark:text-white' : 'text-gray-700 dark:text-gray-300'
+                                            `group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+                                                isActive
+                                                    ? 'bg-gradient-to-r from-blue-400 to-cyan-500 text-white shadow-lg transform scale-[1.02]'
+                                                    : 'text-gray-700 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700/50 hover:shadow-md hover:scale-[1.01]'
                                             }`
                                         }
                                         onClick={() => dispatch(toggleSidebar())}
                                     >
-                                        <FontAwesomeIcon icon={icon} className="w-4 h-4" />
-                                        <span className="font-medium">{label}</span>
+                                        <div className={`w-5 h-5 flex items-center justify-center ${location.pathname === to ? '' : 'group-hover:scale-110'} transition-transform duration-200`}>
+                                            <FontAwesomeIcon icon={icon} className="w-4 h-4" />
+                                        </div>
+                                        <span className="font-medium text-sm">{label}</span>
+
+                                        {/* Active indicator */}
+                                        {location.pathname === to && <div className="ml-auto w-2 h-2 bg-white rounded-full opacity-80"></div>}
                                     </NavLink>
-                                </li>
+                                </div>
                             ))}
-                        </ul>
+                        </div>
                     </PerfectScrollbar>
                 </div>
             </nav>
