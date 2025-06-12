@@ -1,0 +1,1 @@
+import{j as a}from"./index-w_Li_T4U.js";import"./pdf-worker-BosuxZz1.js";const r=({})=>a.jsxs("div",{children:[" ",a.jsx("img",{src:"../../public/assets/images/org-chart.png",className:"max-h-full max-w-full object-contain rounded-xl p-5",alt:"itemImage"})]});export{r as default};

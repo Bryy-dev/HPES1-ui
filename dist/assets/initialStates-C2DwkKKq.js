@@ -1,0 +1,1 @@
+const t={email:"",name:"",student_name:"",address:"",document_type:"",date_requested:"",status:""},e={email:"",name:"",company:"",contact:"",amount:""},a={level:"",subject:"",week:""};export{e as b,t as d,a as m};
