@@ -10,6 +10,7 @@ const BrigadaFormPage = lazy(() => import('../pages/issuance/brigadaForm'));
 const FullDetailsPage = lazy(() => import('../pages/news-events/FullDetails'));
 const SuggestionPage = lazy(() => import('../pages/suggestion'));
 const PrimeReportPage = lazy(() => import('../pages/school-paper/primeReport'));
+const SatisfactionSurveyFormPage = lazy(() => import('../pages/SatisfactionSurveyForm'));
 const routes = [
     // dashboard
     {
@@ -67,6 +68,11 @@ const routes = [
     {
         path: '/suggestion/form',
         element: <SuggestionPage />,
+        layout: 'default',
+    },
+    {
+        path: '/services/satisfaction-survey/form',
+        element: <SatisfactionSurveyFormPage />,
         layout: 'default',
     },
 ];

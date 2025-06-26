@@ -133,11 +133,11 @@ const Header = () => {
                                         Suggestion
                                     </NavLink>
                                 </li>
-                                {/* <li>
-                                    <NavLink to="/" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
-                                        Downloads
+                                <li>
+                                    <NavLink to="/services/satisfaction-survey/form" className="block px-4 py-2 hover:bg-cyan-50 hover:text-cyan-600">
+                                        Client Satisfaction Survey Form
                                     </NavLink>
-                                </li> */}
+                                </li>
                             </ul>
                         </li>
 
