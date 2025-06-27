@@ -7,9 +7,13 @@ const SurveyService = () => {
     const fetchAll = async (): Promise<ApiResponse<any>> => {
         return get<any>(`${baseUrl}/`);
     };
+    const insert = async (data: any): Promise<ApiResponse<any>> => {
+        return post<any>(`${baseUrl}/`, data);
+    };
 
     return {
         fetchAll,
+        insert,
     };
 };
 export default SurveyService;

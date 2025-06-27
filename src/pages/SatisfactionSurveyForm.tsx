@@ -187,7 +187,7 @@ const SatisfactionSurveyForm: React.FC<SuggestionProps> = ({}) => {
         isError,
     } = useMutation({
         mutationKey: [''],
-        mutationFn: (data: any) => surveyService.fetchAll(),
+        mutationFn: (data: any) => surveyService.insert(data),
         onSuccess: () => {
             showNotification('Form submitted successfully', 'success');
             setData(initialSurveyState);
@@ -202,9 +202,32 @@ const SatisfactionSurveyForm: React.FC<SuggestionProps> = ({}) => {
         queryKey: ['survey'],
         queryFn: () => surveyService.fetchAll(),
     });
-    const validationSchema = Yup.object().shape({
-        suggestion: Yup.string().required('Required'),
-    });
+
+    const generateSurveyValidationSchema = () => {
+        const schemaFields: Record<string, Yup.StringSchema> = {};
+
+        const categories = {
+            c1: 12,
+            c2: 10,
+            c3: 10,
+            c4: 8,
+            c5: 9,
+            c6: 10,
+            c7: 9,
+        };
+
+        for (const [category, count] of Object.entries(categories)) {
+            for (let i = 1; i <= count; i++) {
+                const fieldName = `${category}_q${i}`;
+                schemaFields[fieldName] = Yup.string().required('Required');
+            }
+        }
+
+        return Yup.object().shape(schemaFields);
+    };
+
+    const validationSchema = generateSurveyValidationSchema();
+
     const [onsubmit, setOnSubmit] = useState<boolean>(false);
 
     const guidanceQuestions = useMemo(() => {
@@ -239,6 +262,12 @@ const SatisfactionSurveyForm: React.FC<SuggestionProps> = ({}) => {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
     };
+    interface SurveyAnswer {
+        category_id: string;
+        question_id: string;
+        answer: string;
+    }
+
     return (
         <div>
             <Formik
@@ -247,7 +276,19 @@ const SatisfactionSurveyForm: React.FC<SuggestionProps> = ({}) => {
                 initialValues={data}
                 validationSchema={validationSchema}
                 onSubmit={async (values, action) => {
-                    create(values);
+                    const transformed = Object.entries(values).map(([key, answer]) => {
+                        const [catRaw, quesRaw] = key.split('_'); // e.g., "c1_q2"
+                        const category_id = parseInt(catRaw.replace('c', ''), 10); // "c1" → 1
+                        const question_id = parseInt(quesRaw.replace('q', ''), 10); // "q2" → 2
+
+                        return {
+                            category_id,
+                            question_id,
+                            answer,
+                        };
+                    });
+                    console.log(transformed);
+                    create(transformed);
                 }}
             >
                 {({ values, setFieldValue, errors, touched, isValid, isSubmitting, resetForm }) => {
