@@ -10,8 +10,176 @@ import SuggestionService from '../services/suggestionService';
 import SurveyService from '../services/surveyService';
 interface SuggestionProps {}
 
+interface SurveyModel {
+    // Category 1: 12 questions
+    c1_q1: string;
+    c1_q2: string;
+    c1_q3: string;
+    c1_q4: string;
+    c1_q5: string;
+    c1_q6: string;
+    c1_q7: string;
+    c1_q8: string;
+    c1_q9: string;
+    c1_q10: string;
+    c1_q11: string;
+    c1_q12: string;
+
+    // Category 2: 10 questions
+    c2_q1: string;
+    c2_q2: string;
+    c2_q3: string;
+    c2_q4: string;
+    c2_q5: string;
+    c2_q6: string;
+    c2_q7: string;
+    c2_q8: string;
+    c2_q9: string;
+    c2_q10: string;
+
+    // Category 3: 10 questions
+    c3_q1: string;
+    c3_q2: string;
+    c3_q3: string;
+    c3_q4: string;
+    c3_q5: string;
+    c3_q6: string;
+    c3_q7: string;
+    c3_q8: string;
+    c3_q9: string;
+    c3_q10: string;
+
+    // Category 4: 8 questions
+    c4_q1: string;
+    c4_q2: string;
+    c4_q3: string;
+    c4_q4: string;
+    c4_q5: string;
+    c4_q6: string;
+    c4_q7: string;
+    c4_q8: string;
+
+    // Category 5: 9 questions
+    c5_q1: string;
+    c5_q2: string;
+    c5_q3: string;
+    c5_q4: string;
+    c5_q5: string;
+    c5_q6: string;
+    c5_q7: string;
+    c5_q8: string;
+    c5_q9: string;
+
+    // Category 6: 10 questions
+    c6_q1: string;
+    c6_q2: string;
+    c6_q3: string;
+    c6_q4: string;
+    c6_q5: string;
+    c6_q6: string;
+    c6_q7: string;
+    c6_q8: string;
+    c6_q9: string;
+    c6_q10: string;
+
+    // Category 7: 9 questions
+    c7_q1: string;
+    c7_q2: string;
+    c7_q3: string;
+    c7_q4: string;
+    c7_q5: string;
+    c7_q6: string;
+    c7_q7: string;
+    c7_q8: string;
+    c7_q9: string;
+}
+const initialSurveyState: SurveyModel = {
+    // Category 1
+    c1_q1: '',
+    c1_q2: '',
+    c1_q3: '',
+    c1_q4: '',
+    c1_q5: '',
+    c1_q6: '',
+    c1_q7: '',
+    c1_q8: '',
+    c1_q9: '',
+    c1_q10: '',
+    c1_q11: '',
+    c1_q12: '',
+
+    // Category 2
+    c2_q1: '',
+    c2_q2: '',
+    c2_q3: '',
+    c2_q4: '',
+    c2_q5: '',
+    c2_q6: '',
+    c2_q7: '',
+    c2_q8: '',
+    c2_q9: '',
+    c2_q10: '',
+
+    // Category 3
+    c3_q1: '',
+    c3_q2: '',
+    c3_q3: '',
+    c3_q4: '',
+    c3_q5: '',
+    c3_q6: '',
+    c3_q7: '',
+    c3_q8: '',
+    c3_q9: '',
+    c3_q10: '',
+
+    // Category 4
+    c4_q1: '',
+    c4_q2: '',
+    c4_q3: '',
+    c4_q4: '',
+    c4_q5: '',
+    c4_q6: '',
+    c4_q7: '',
+    c4_q8: '',
+
+    // Category 5
+    c5_q1: '',
+    c5_q2: '',
+    c5_q3: '',
+    c5_q4: '',
+    c5_q5: '',
+    c5_q6: '',
+    c5_q7: '',
+    c5_q8: '',
+    c5_q9: '',
+
+    // Category 6
+    c6_q1: '',
+    c6_q2: '',
+    c6_q3: '',
+    c6_q4: '',
+    c6_q5: '',
+    c6_q6: '',
+    c6_q7: '',
+    c6_q8: '',
+    c6_q9: '',
+    c6_q10: '',
+
+    // Category 7
+    c7_q1: '',
+    c7_q2: '',
+    c7_q3: '',
+    c7_q4: '',
+    c7_q5: '',
+    c7_q6: '',
+    c7_q7: '',
+    c7_q8: '',
+    c7_q9: '',
+};
+
 const SatisfactionSurveyForm: React.FC<SuggestionProps> = ({}) => {
-    const [data, setData] = useState<{ name: string; email: string; suggestion: string }>({ name: '', email: '', suggestion: '' });
+    const [data, setData] = useState<SurveyModel>(initialSurveyState);
+    const [step, setStep] = useState<number>(1);
     const surveyService = SurveyService();
     const {
         mutateAsync: create,
@@ -22,7 +190,7 @@ const SatisfactionSurveyForm: React.FC<SuggestionProps> = ({}) => {
         mutationFn: (data: any) => surveyService.fetchAll(),
         onSuccess: () => {
             showNotification('Form submitted successfully', 'success');
-            setData({ name: '', email: '', suggestion: '' });
+            setData(initialSurveyState);
         },
     });
 
@@ -67,6 +235,10 @@ const SatisfactionSurveyForm: React.FC<SuggestionProps> = ({}) => {
         return surveyData?.data.filter((item: any) => item.category_id === 7) || [];
     }, [surveyData]);
 
+    const goToTop = () => {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    };
     return (
         <div>
             <Formik
@@ -87,7 +259,7 @@ const SatisfactionSurveyForm: React.FC<SuggestionProps> = ({}) => {
 
                     useEffect(() => {
                         if (!isValid) {
-                            showNotification('You need to input a suggestion before you can submit', 'warning');
+                            showNotification('Please rate questions before submitting', 'warning');
                         }
                     }, [onsubmit]);
                     console.log(values);
@@ -99,217 +271,365 @@ const SatisfactionSurveyForm: React.FC<SuggestionProps> = ({}) => {
                             {isError && <ErrorMsg />}
                             {isPending && <Loading />}
                             {!isPending && !isError && (
-                                <div className="lg:panel px-2">
-                                    <div className="mb-5 lg:py-2  text-center">
-                                        <h2 className="lg:text-4xl text-2xl font-black text-gray-800 dark:text-white">
-                                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Client Satisfaction Survey Form</span>
-                                        </h2>
-                                    </div>
+                                <div className="lg:panel">
+                                    <div className="">
+                                        <div className="mb-5 lg:py-2 text-center">
+                                            <h2 className="lg:text-4xl text-2xl font-black text-gray-800 dark:text-white">
+                                                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Client Satisfaction Survey Form</span>
+                                            </h2>
+                                        </div>
 
-                                    <div className={'flex items-center justify-center my-2'}>
-                                        <div className=" text-gray-black bg-white lg:shadow-none lg:border-none lg:rounded-none shadow-xl border rounded-lg">
-                                            {/* Rating */}
-                                            <div className="flex flex-col justify-center">
-                                                <div className="">
-                                                    <h2 className="lg:text-xl text-lg font-black text-gray-800 dark:text-white ">
-                                                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Guidance / Registrar's Office</span>
-                                                    </h2>
-                                                    {guidanceQuestions.map((data: any, index: number) => {
-                                                        const name = `c1_q${index}`;
-                                                        return (
-                                                            <div className="group lg:col-span-2  lg:flex items-center lg:justify-between border rounded mb-1 py-1 px-2" key={index}>
-                                                                <label className="block text-sm font-medium text-gray-700 mr-5">{`${index + 1}) ${data.question}`}</label>
-                                                                <div className="flex flex-wrap gap-4  px-2 py-2">
-                                                                    {[1, 2, 3, 4].map((num) => (
-                                                                        <label key={num} className=" items-center space-x-2">
-                                                                            <Field type="radio" name={name} value={String(num)} className="form-radio text-blue-500" />
-                                                                            <span>{num}</span>
-                                                                        </label>
-                                                                    ))}
-                                                                    <label className="flex items-center space-x-2">
-                                                                        <Field type="radio" name={name} value="NA" className="form-radio text-blue-500" />
-                                                                        <span>N/A</span>
-                                                                    </label>
+                                        <div className={'flex items-center justify-center my-2'}>
+                                            <div className=" text-gray-black">
+                                                {/* Rating */}
+                                                <div className="flex flex-col justify-center">
+                                                    {step == 1 && (
+                                                        <div className="px-4">
+                                                            <div className=" max-w-2xl pt-2 mb-5 ">
+                                                                <h2>
+                                                                    <b>Instructions:</b> Please indicate your level of satisfaction with the services provided by the office by checking the box that
+                                                                    best represents your experience.
+                                                                </h2>
+
+                                                                <div className="flex flex-col">
+                                                                    <p>Scale:</p>
+                                                                    <p>4 – Very Satisfied</p>
+                                                                    <p>3 – Satisfied</p>
+                                                                    <p>2 – Slightly Satisfied</p>
+                                                                    <p>1 – Not Satisfied</p>
+                                                                    <p>NA if not applicable with the service availed</p>
                                                                 </div>
                                                             </div>
-                                                        );
-                                                    })}
-                                                </div>
+                                                            <h2 className="lg:text-xl text-lg font-black text-gray-800 dark:text-white  ">
+                                                                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500 ">Guidance / Registrar's Office</span>
+                                                            </h2>
+                                                            {guidanceQuestions.map((data: any, index: number) => {
+                                                                const name = `c1_q${index + 1}`;
+                                                                return (
+                                                                    <div className="group lg:col-span-2  lg:flex items-center lg:justify-between  rounded mb-1 py-1 px-2" key={index}>
+                                                                        <label className="block text-sm font-medium text-gray-700 mr-5">{`${index + 1}) ${data.question}`}</label>
+                                                                        <div className="flex flex-wrap gap-4  px-2 py-2">
+                                                                            {[1, 2, 3, 4].map((num) => (
+                                                                                <label key={num} className=" items-center space-x-2">
+                                                                                    <Field type="radio" name={name} value={String(num)} className="form-radio text-blue-500" />
+                                                                                    <span>{num}</span>
+                                                                                </label>
+                                                                            ))}
+                                                                            <label className="flex items-center space-x-2">
+                                                                                <Field type="radio" name={name} value="NA" className="form-radio text-blue-500" />
+                                                                                <span>N/A</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                );
+                                                            })}
+                                                        </div>
+                                                    )}
 
-                                                <div className="lg:mt-8 mt-4">
-                                                    <h2 className="lg:text-xl text-lg font-black text-gray-800 dark:text-white ">
-                                                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">School Clinic / Health Services</span>
-                                                    </h2>
-                                                    {clinicQuestions.map((data: any, index: number) => {
-                                                        const name = `c2_q${index}`;
-                                                        return (
-                                                            <div className="group lg:col-span-2  lg:flex items-center lg:justify-between border rounded mb-1 py-1 px-2" key={index}>
-                                                                <label className="block text-sm font-medium text-gray-700 mr-5">{`${index + 1}) ${data.question}`}</label>
-                                                                <div className="flex flex-wrap gap-4  px-2 py-2">
-                                                                    {[1, 2, 3, 4].map((num) => (
-                                                                        <label key={num} className=" items-center space-x-2">
-                                                                            <Field type="radio" name={name} value={String(num)} className="form-radio text-blue-500" />
-                                                                            <span>{num}</span>
-                                                                        </label>
-                                                                    ))}
-                                                                    <label className="flex items-center space-x-2">
-                                                                        <Field type="radio" name={name} value="NA" className="form-radio text-blue-500" />
-                                                                        <span>N/A</span>
-                                                                    </label>
+                                                    {step == 2 && (
+                                                        <div className="lg:mt-8 mt-4 px-4">
+                                                            <div className=" max-w-2xl pt-2 mb-5">
+                                                                <h2>
+                                                                    <b>Instructions:</b> Please indicate your level of satisfaction with the services provided by the office by checking the box that
+                                                                    best represents your experience.
+                                                                </h2>
+
+                                                                <div className="flex flex-col">
+                                                                    <p>Scale:</p>
+                                                                    <p>4 – Very Satisfied</p>
+                                                                    <p>3 – Satisfied</p>
+                                                                    <p>2 – Slightly Satisfied</p>
+                                                                    <p>1 – Not Satisfied</p>
+                                                                    <p>NA if not applicable with the service availed</p>
                                                                 </div>
                                                             </div>
-                                                        );
-                                                    })}
-                                                </div>
+                                                            <h2 className="lg:text-xl text-lg font-black text-gray-800 dark:text-white ">
+                                                                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500 ">School Clinic / Health Services</span>
+                                                            </h2>
+                                                            {clinicQuestions.map((data: any, index: number) => {
+                                                                const name = `c2_q${index + 1}`;
+                                                                return (
+                                                                    <div className="group lg:col-span-2  lg:flex items-center lg:justify-between  rounded mb-1 py-1 px-2" key={index}>
+                                                                        <label className="block text-sm font-medium text-gray-700 mr-5">{`${index + 1}) ${data.question}`}</label>
+                                                                        <div className="flex flex-wrap gap-4  px-2 py-2">
+                                                                            {[1, 2, 3, 4].map((num) => (
+                                                                                <label key={num} className=" items-center space-x-2">
+                                                                                    <Field type="radio" name={name} value={String(num)} className="form-radio text-blue-500" />
+                                                                                    <span>{num}</span>
+                                                                                </label>
+                                                                            ))}
+                                                                            <label className="flex items-center space-x-2">
+                                                                                <Field type="radio" name={name} value="NA" className="form-radio text-blue-500" />
+                                                                                <span>N/A</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                );
+                                                            })}
+                                                        </div>
+                                                    )}
 
-                                                <div className="lg:mt-8 mt-4">
-                                                    <h2 className="lg:text-xl text-lg font-black text-gray-800 dark:text-white ">
-                                                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Interactions With Teacher</span>
-                                                    </h2>
-                                                    {teacherQuestions.map((data: any, index: number) => {
-                                                        const name = `c3_q${index}`;
-                                                        return (
-                                                            <div className="group lg:col-span-2  lg:flex items-center lg:justify-between border rounded mb-1 py-1 px-2" key={index}>
-                                                                <label className="block text-sm font-medium text-gray-700 mr-5">{`${index + 1}) ${data.question}`}</label>
-                                                                <div className="flex flex-wrap gap-4  px-2 py-2">
-                                                                    {[1, 2, 3, 4].map((num) => (
-                                                                        <label key={num} className=" items-center space-x-2">
-                                                                            <Field type="radio" name={name} value={String(num)} className="form-radio text-blue-500" />
-                                                                            <span>{num}</span>
-                                                                        </label>
-                                                                    ))}
-                                                                    <label className="flex items-center space-x-2">
-                                                                        <Field type="radio" name={name} value="NA" className="form-radio text-blue-500" />
-                                                                        <span>N/A</span>
-                                                                    </label>
+                                                    {step == 3 && (
+                                                        <div className="lg:mt-8 mt-4 px-4">
+                                                            <div className=" max-w-2xl pt-2 mb-5">
+                                                                <h2>
+                                                                    <b>Instructions:</b> Please indicate your level of satisfaction with the services provided by the office by checking the box that
+                                                                    best represents your experience.
+                                                                </h2>
+
+                                                                <div className="flex flex-col">
+                                                                    <p>Scale:</p>
+                                                                    <p>4 – Very Satisfied</p>
+                                                                    <p>3 – Satisfied</p>
+                                                                    <p>2 – Slightly Satisfied</p>
+                                                                    <p>1 – Not Satisfied</p>
+                                                                    <p>NA if not applicable with the service availed</p>
                                                                 </div>
                                                             </div>
-                                                        );
-                                                    })}
-                                                </div>
+                                                            <h2 className="lg:text-xl text-lg font-black text-gray-800 dark:text-white ">
+                                                                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Interactions With Teacher</span>
+                                                            </h2>
+                                                            {teacherQuestions.map((data: any, index: number) => {
+                                                                const name = `c3_q${index + 1}`;
+                                                                return (
+                                                                    <div className="group lg:col-span-2  lg:flex items-center lg:justify-between  rounded mb-1 py-1 px-2" key={index}>
+                                                                        <label className="block text-sm font-medium text-gray-700 mr-5">{`${index + 1}) ${data.question}`}</label>
+                                                                        <div className="flex flex-wrap gap-4  px-2 py-2">
+                                                                            {[1, 2, 3, 4].map((num) => (
+                                                                                <label key={num} className=" items-center space-x-2">
+                                                                                    <Field type="radio" name={name} value={String(num)} className="form-radio text-blue-500" />
+                                                                                    <span>{num}</span>
+                                                                                </label>
+                                                                            ))}
+                                                                            <label className="flex items-center space-x-2">
+                                                                                <Field type="radio" name={name} value="NA" className="form-radio text-blue-500" />
+                                                                                <span>N/A</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                );
+                                                            })}
+                                                        </div>
+                                                    )}
 
-                                                <div className="lg:mt-8 mt-4">
-                                                    <h2 className="lg:text-xl text-lg font-black text-gray-800 dark:text-white ">
-                                                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Administrative Office / Clerk's Office</span>
-                                                    </h2>
-                                                    {adminQuestion.map((data: any, index: number) => {
-                                                        const name = `c4_q${index}`;
-                                                        return (
-                                                            <div className="group lg:col-span-2  lg:flex items-center lg:justify-between border rounded mb-1 py-1 px-2" key={index}>
-                                                                <label className="block text-sm font-medium text-gray-700 mr-5">{`${index + 1}) ${data.question}`}</label>
-                                                                <div className="flex flex-wrap gap-4  px-2 py-2">
-                                                                    {[1, 2, 3, 4].map((num) => (
-                                                                        <label key={num} className=" items-center space-x-2">
-                                                                            <Field type="radio" name={name} value={String(num)} className="form-radio text-blue-500" />
-                                                                            <span>{num}</span>
-                                                                        </label>
-                                                                    ))}
-                                                                    <label className="flex items-center space-x-2">
-                                                                        <Field type="radio" name={name} value="NA" className="form-radio text-blue-500" />
-                                                                        <span>N/A</span>
-                                                                    </label>
+                                                    {step == 4 && (
+                                                        <div className="lg:mt-8 mt-4 px-4">
+                                                            <div className=" max-w-2xl pt-2 mb-5 ">
+                                                                <h2>
+                                                                    <b>Instructions:</b> Please indicate your level of satisfaction with the services provided by the office by checking the box that
+                                                                    best represents your experience.
+                                                                </h2>
+
+                                                                <div className="flex flex-col">
+                                                                    <p>Scale:</p>
+                                                                    <p>4 – Very Satisfied</p>
+                                                                    <p>3 – Satisfied</p>
+                                                                    <p>2 – Slightly Satisfied</p>
+                                                                    <p>1 – Not Satisfied</p>
+                                                                    <p>NA if not applicable with the service availed</p>
                                                                 </div>
                                                             </div>
-                                                        );
-                                                    })}
-                                                </div>
+                                                            <h2 className="lg:text-xl text-lg font-black text-gray-800 dark:text-white ">
+                                                                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500 ">
+                                                                    Administrative Office / Clerk's Office
+                                                                </span>
+                                                            </h2>
+                                                            {adminQuestion.map((data: any, index: number) => {
+                                                                const name = `c4_q${index + 1}`;
+                                                                return (
+                                                                    <div className="group lg:col-span-2  lg:flex items-center lg:justify-between  rounded mb-1 py-1 px-2" key={index}>
+                                                                        <label className="block text-sm font-medium text-gray-700 mr-5">{`${index + 1}) ${data.question}`}</label>
+                                                                        <div className="flex flex-wrap gap-4  px-2 py-2">
+                                                                            {[1, 2, 3, 4].map((num) => (
+                                                                                <label key={num} className=" items-center space-x-2">
+                                                                                    <Field type="radio" name={name} value={String(num)} className="form-radio text-blue-500" />
+                                                                                    <span>{num}</span>
+                                                                                </label>
+                                                                            ))}
+                                                                            <label className="flex items-center space-x-2">
+                                                                                <Field type="radio" name={name} value="NA" className="form-radio text-blue-500" />
+                                                                                <span>N/A</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                );
+                                                            })}
+                                                        </div>
+                                                    )}
 
-                                                <div className="lg:mt-8 mt-4">
-                                                    <h2 className="lg:text-xl text-lg font-black text-gray-800 dark:text-white ">
-                                                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Supply Office</span>
-                                                    </h2>
-                                                    {supplyQuestions.map((data: any, index: number) => {
-                                                        const name = `c5_q${index}`;
-                                                        return (
-                                                            <div className="group lg:col-span-2  lg:flex items-center lg:justify-between border rounded mb-1 py-1 px-2" key={index}>
-                                                                <label className="block text-sm font-medium text-gray-700 mr-5">{`${index + 1}) ${data.question}`}</label>
-                                                                <div className="flex flex-wrap gap-4  px-2 py-2">
-                                                                    {[1, 2, 3, 4].map((num) => (
-                                                                        <label key={num} className=" items-center space-x-2">
-                                                                            <Field type="radio" name={name} value={String(num)} className="form-radio text-blue-500" />
-                                                                            <span>{num}</span>
-                                                                        </label>
-                                                                    ))}
-                                                                    <label className="flex items-center space-x-2">
-                                                                        <Field type="radio" name={name} value="NA" className="form-radio text-blue-500" />
-                                                                        <span>N/A</span>
-                                                                    </label>
+                                                    {step == 5 && (
+                                                        <div className="lg:mt-8 mt-4 px-4">
+                                                            <div className=" max-w-2xl pt-2 mb-5 ">
+                                                                <h2>
+                                                                    <b>Instructions:</b> Please indicate your level of satisfaction with the services provided by the office by checking the box that
+                                                                    best represents your experience.
+                                                                </h2>
+
+                                                                <div className="flex flex-col">
+                                                                    <p>Scale:</p>
+                                                                    <p>4 – Very Satisfied</p>
+                                                                    <p>3 – Satisfied</p>
+                                                                    <p>2 – Slightly Satisfied</p>
+                                                                    <p>1 – Not Satisfied</p>
+                                                                    <p>NA if not applicable with the service availed</p>
                                                                 </div>
                                                             </div>
-                                                        );
-                                                    })}
-                                                </div>
+                                                            <h2 className="lg:text-xl text-lg font-black text-gray-800 dark:text-white ">
+                                                                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500 ">Supply Office</span>
+                                                            </h2>
+                                                            {supplyQuestions.map((data: any, index: number) => {
+                                                                const name = `c5_q${index + 1}`;
+                                                                return (
+                                                                    <div className="group lg:col-span-2  lg:flex items-center lg:justify-between  rounded mb-1 py-1 px-2" key={index}>
+                                                                        <label className="block text-sm font-medium text-gray-700 mr-5">{`${index + 1}) ${data.question}`}</label>
+                                                                        <div className="flex flex-wrap gap-4  px-2 py-2">
+                                                                            {[1, 2, 3, 4].map((num) => (
+                                                                                <label key={num} className=" items-center space-x-2">
+                                                                                    <Field type="radio" name={name} value={String(num)} className="form-radio text-blue-500" />
+                                                                                    <span>{num}</span>
+                                                                                </label>
+                                                                            ))}
+                                                                            <label className="flex items-center space-x-2">
+                                                                                <Field type="radio" name={name} value="NA" className="form-radio text-blue-500" />
+                                                                                <span>N/A</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                );
+                                                            })}
+                                                        </div>
+                                                    )}
 
-                                                <div className="lg:mt-8 mt-4">
-                                                    <h2 className="lg:text-xl text-lg font-black text-gray-800 dark:text-white ">
-                                                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">General Services</span>
-                                                    </h2>
-                                                    {generalServicesQuestions.map((data: any, index: number) => {
-                                                        const name = `c6_q${index}`;
-                                                        return (
-                                                            <div className="group lg:col-span-2  lg:flex items-center lg:justify-between border rounded mb-1 py-1 px-2" key={index}>
-                                                                <label className="block text-sm font-medium text-gray-700 mr-5">{`${index + 1}) ${data.question}`}</label>
-                                                                <div className="flex flex-wrap gap-4  px-2 py-2">
-                                                                    {[1, 2, 3, 4].map((num) => (
-                                                                        <label key={num} className=" items-center space-x-2">
-                                                                            <Field type="radio" name={name} value={String(num)} className="form-radio text-blue-500" />
-                                                                            <span>{num}</span>
-                                                                        </label>
-                                                                    ))}
-                                                                    <label className="flex items-center space-x-2">
-                                                                        <Field type="radio" name={name} value="NA" className="form-radio text-blue-500" />
-                                                                        <span>N/A</span>
-                                                                    </label>
+                                                    {step == 6 && (
+                                                        <div className="lg:mt-8 mt-4 px-4">
+                                                            <div className=" max-w-2xl pt-2 mb-5 ">
+                                                                <h2>
+                                                                    <b>Instructions:</b> Please indicate your level of satisfaction with the services provided by the office by checking the box that
+                                                                    best represents your experience.
+                                                                </h2>
+
+                                                                <div className="flex flex-col">
+                                                                    <p>Scale:</p>
+                                                                    <p>4 – Very Satisfied</p>
+                                                                    <p>3 – Satisfied</p>
+                                                                    <p>2 – Slightly Satisfied</p>
+                                                                    <p>1 – Not Satisfied</p>
+                                                                    <p>NA if not applicable with the service availed</p>
                                                                 </div>
                                                             </div>
-                                                        );
-                                                    })}
-                                                </div>
+                                                            <h2 className="lg:text-xl text-lg font-black text-gray-800 dark:text-white ">
+                                                                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500 ">General Services</span>
+                                                            </h2>
+                                                            {generalServicesQuestions.map((data: any, index: number) => {
+                                                                const name = `c6_q${index + 1}`;
+                                                                return (
+                                                                    <div className="group lg:col-span-2  lg:flex items-center lg:justify-between px-4 rounded mb-1 py-1 px-2" key={index}>
+                                                                        <label className="block text-sm font-medium text-gray-700 mr-5">{`${index + 1}) ${data.question}`}</label>
+                                                                        <div className="flex flex-wrap gap-4  px-2 py-2">
+                                                                            {[1, 2, 3, 4].map((num) => (
+                                                                                <label key={num} className=" items-center space-x-2">
+                                                                                    <Field type="radio" name={name} value={String(num)} className="form-radio text-blue-500" />
+                                                                                    <span>{num}</span>
+                                                                                </label>
+                                                                            ))}
+                                                                            <label className="flex items-center space-x-2">
+                                                                                <Field type="radio" name={name} value="NA" className="form-radio text-blue-500" />
+                                                                                <span>N/A</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                );
+                                                            })}
+                                                        </div>
+                                                    )}
 
-                                                <div className="lg:mt-8 mt-4">
-                                                    <h2 className="lg:text-xl text-lg font-black text-gray-800 dark:text-white ">
-                                                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Canteen Services</span>
-                                                    </h2>
-                                                    {canteenQuestions.map((data: any, index: number) => {
-                                                        const name = `c7_q${index}`;
-                                                        return (
-                                                            <div className="group lg:col-span-2  lg:flex items-center lg:justify-between border rounded mb-1 py-1 px-2" key={index}>
-                                                                <label className="block text-sm font-medium text-gray-700 mr-5">{`${index + 1}) ${data.question}`}</label>
-                                                                <div className="flex flex-wrap gap-4  px-2 py-2">
-                                                                    {[1, 2, 3, 4].map((num) => (
-                                                                        <label key={num} className=" items-center space-x-2">
-                                                                            <Field type="radio" name={name} value={String(num)} className="form-radio text-blue-500" />
-                                                                            <span>{num}</span>
-                                                                        </label>
-                                                                    ))}
-                                                                    <label className="flex items-center space-x-2">
-                                                                        <Field type="radio" name={name} value="NA" className="form-radio text-blue-500" />
-                                                                        <span>N/A</span>
-                                                                    </label>
+                                                    {step == 7 && (
+                                                        <div className="lg:mt-8 mt-4 px-4">
+                                                            <div className=" max-w-2xl pt-2 mb-5 ">
+                                                                <h2>
+                                                                    <b>Instructions:</b> Please indicate your level of satisfaction with the services provided by the office by checking the box that
+                                                                    best represents your experience.
+                                                                </h2>
+
+                                                                <div className="flex flex-col">
+                                                                    <p>Scale:</p>
+                                                                    <p>4 – Very Satisfied</p>
+                                                                    <p>3 – Satisfied</p>
+                                                                    <p>2 – Slightly Satisfied</p>
+                                                                    <p>1 – Not Satisfied</p>
+                                                                    <p>NA if not applicable with the service availed</p>
                                                                 </div>
                                                             </div>
-                                                        );
-                                                    })}
+                                                            <h2 className="lg:text-xl text-lg font-black text-gray-800 dark:text-white ">
+                                                                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500 ">Canteen Services</span>
+                                                            </h2>
+                                                            {canteenQuestions.map((data: any, index: number) => {
+                                                                const name = `c7_q${index + 1}`;
+                                                                return (
+                                                                    <div className="group lg:col-span-2  lg:flex items-center lg:justify-between  rounded mb-1 py-1 px-2" key={index}>
+                                                                        <label className="block text-sm font-medium text-gray-700 mr-5">{`${index + 1}) ${data.question}`}</label>
+                                                                        <div className="flex flex-wrap gap-4  px-2 py-2">
+                                                                            {[1, 2, 3, 4].map((num) => (
+                                                                                <label key={num} className=" items-center space-x-2">
+                                                                                    <Field type="radio" name={name} value={String(num)} className="form-radio text-blue-500" />
+                                                                                    <span>{num}</span>
+                                                                                </label>
+                                                                            ))}
+                                                                            <label className="flex items-center space-x-2">
+                                                                                <Field type="radio" name={name} value="NA" className="form-radio text-blue-500" />
+                                                                                <span>N/A</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                );
+                                                            })}
+                                                        </div>
+                                                    )}
                                                 </div>
-                                            </div>
 
-                                            {/* Buttons */}
-                                            <div className="flex justify-end items-center gap-3 pt-5 mt-4 border-t border-gray-100 px-5 lg:px-0">
-                                                <button
-                                                    className="px-4 py-2 text-gray-600 bg-gray-50 border hover:bg-gray-100 rounded-lg transition-colors duration-200 text-sm font-medium flex items-center"
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        resetForm();
-                                                    }}
-                                                >
-                                                    Clear
-                                                </button>
-                                                <button
-                                                    type="submit"
-                                                    className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors duration-200 text-sm font-medium flex items-center shadow-sm"
-                                                >
-                                                    Submit
-                                                </button>
+                                                {/* Buttons */}
+                                                <div className="flex justify-end items-center gap-1 pt-5 mt-4 border-t border-gray-100 px-5 lg:px-0">
+                                                    <button
+                                                        className="px-6 py-2 text-gray-600 bg-gray-50 border hover:bg-gray-100 rounded-lg transition-colors duration-200 text-sm font-medium flex items-center"
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                            resetForm();
+                                                        }}
+                                                    >
+                                                        Clear
+                                                    </button>
+                                                    <button
+                                                        className="px-6 py-2 text-gray-600 bg-gray-50 border hover:bg-gray-100  rounded-lg transition-colors duration-200 text-sm font-medium flex items-center shadow-sm"
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                            setStep(step - 1);
+                                                            goToTop();
+                                                        }}
+                                                        disabled={step == 1}
+                                                    >
+                                                        Back
+                                                    </button>
+
+                                                    {step == 7 ? (
+                                                        <button
+                                                            type="submit"
+                                                            className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors duration-200 text-sm font-medium flex items-center shadow-sm"
+                                                        >
+                                                            Submit
+                                                        </button>
+                                                    ) : (
+                                                        <button
+                                                            className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors duration-200 text-sm font-medium flex items-center shadow-sm"
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                setStep(step + 1);
+                                                                goToTop();
+                                                            }}
+                                                        >
+                                                            Next
+                                                        </button>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

@@ -45,6 +45,7 @@ const Sidebar = () => {
         { to: '/issuance/form', label: 'Document Request Form', icon: faNewspaper },
         { to: '/issuance/brigada/form', label: 'Brigada Donor Form', icon: faHandsHoldingChild },
         { to: '/suggestion/form', label: 'Suggestion Form', icon: faHandPaper },
+        { to: '/services/satisfaction-survey/form', label: 'Satisfaction Survey Form', icon: faHandPaper },
 
         // { to: '/Level&Section', label: 'Grade Level & Section', icon: faUserGraduate },
         // { to: '/Users', label: 'Users', icon: faUsers },
