@@ -28,7 +28,7 @@ const Header = () => {
                                 <FontAwesomeIcon icon={faAlignLeft} />
                             </button>
                         </div>
-                        <Link to="/" className=" items-center gap-3 hidden md:flex">
+                        <Link to="/" className=" items-center gap-3 hidden lg:flex">
                             <img className="lg:w-20 lg:h-20 w-14 h-14 object-contain" src="/assets/images/hpes-logo.png" alt="logo" />
                             <div className="">
                                 <h1 className="text-xl font-black text-white leading-tight">Hen Pio Del Pilar Elementary School 1</h1>
