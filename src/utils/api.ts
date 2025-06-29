@@ -1,9 +1,13 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
 
 // Define a base URL for your API
-const baseURL = 'http://192.168.3.27:4000/api';
-// const baseURL = 'https://server.hpdpes1.com/api/';
-// Create an instance of Axios with default configurations
+const baseURL =
+    import.meta.env.VITE_NODE_ENV === 'production'
+        ? import.meta.env.VITE_PRODUCTION_API_URL
+        : import.meta.env.VITE_NODE_ENV === 'test'
+        ? import.meta.env.VITE_NETWORK_HOST_API_URL
+        : import.meta.env.VITE_DEVELOPMENT_API_URL;
+// // Create an instance of Axios with default configurations
 const api = axios.create({
     baseURL,
 });
