@@ -5,7 +5,8 @@
     "type": "module",
     "homepage": "https://hpdpes1.com/",
     "scripts": {
-        "dev": "vite --host",
+        "dev": "vite --open --host ",
+        "start": "vite --open",
         "build": "vite build",
         "preview": "vite preview",
         "deploy": "deploy.sh"
