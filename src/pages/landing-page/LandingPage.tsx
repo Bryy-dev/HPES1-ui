@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { slugify } from '../../components/helper/slugify';
 import Loading from '../../components/loader';
 import ErrorMsg from '../../components/ErrorMsg';
+import ComponentHeader from '../../components/Header';
 
 interface LandingPageProps {}
 
@@ -94,11 +95,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                     <section className=" mb-5 bg-white border rounded-xl shadow-lg ">
                         <div className="flex items-center justify-between lg:px-6 px-4 py-7">
                             {/* component header */}
-                            <div className="">
-                                <h2 className="lg:text-4xl text-2xl font-black text-gray-800 dark:text-white">
-                                    <span className="page-header">Latest News</span>
-                                </h2>
-                            </div>
+                            <ComponentHeader title="Latest News" />
                             {/* Carousel Navigation */}
                             <div className="flex space-x-2">
                                 <button className="swiper-button-prev-news border-2 text-dark  rounded-full w-10 h-10 flex items-center justify-center hover:bg-indigo-700 hover:text-white transition-colors">
@@ -200,15 +197,12 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                     {/* Two Column Layout */}
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
                         {/* Events Section */}
-                        <section className="lg:col-span-5  flex flex-col gap-2">
+                        <section className="lg:col-span-5 flex flex-col gap-2">
                             <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-md overflow-hidden border">
-                                <div className="px-6 pt-4 pb-1">
-                                    <h2 className="lg:text-2xl md:text-xl sm:text-lg text-2xl font-black text-gray-800 dark:text-white sm:text-start text-center">
-                                        <span className="page-header">Events</span>
-                                    </h2>
+                                <div className="px-6 pt-4">
+                                    <ComponentHeader title="Events" desktopSize="2xl" defaultSize="2xl" />
                                 </div>
-
-                                <div className="p-2">
+                                <div className="px-2">
                                     <Swiper
                                         modules={[Navigation, Pagination, Autoplay]}
                                         navigation={{
@@ -329,10 +323,8 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                             </div>
 
                             <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-md overflow-hidden border py-5 mt-2">
-                                <div className="px-6 ">
-                                    <h2 className="text-2xl font-black text-gray-800 dark:text-white ">
-                                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Quick Downloads</span>
-                                    </h2>
+                                <div className="px-6">
+                                    <ComponentHeader title="Quick Downloads" desktopSize="2xl" defaultSize="2xl" />
                                 </div>
                                 <div className="px-4 py-2">
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -460,10 +452,8 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                         <section className="lg:col-span-7 space-y-8">
                             {/* Calendar */}
                             <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-md overflow-hidden border">
-                                <div className="px-6 py-5">
-                                    <h2 className="text-2xl font-black text-gray-800 dark:text-white ">
-                                        <span className="page-header">Academic Calendar</span>
-                                    </h2>
+                                <div className="px-6 pt-4">
+                                    <ComponentHeader title="School Calendar" desktopSize="2xl" defaultSize="2xl" />
                                 </div>
                                 <div className="calendar-wrapper px-4 text-dark">
                                     <FullCalendar
