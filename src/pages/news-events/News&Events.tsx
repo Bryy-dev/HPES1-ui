@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { slugify } from '../../components/helper/slugify';
 import Loading from '../../components/loader';
 import ErrorMsg from '../../components/ErrorMsg';
+import ComponentHeader from '../../components/Header';
 
 interface NewsAndEventProps {}
 
@@ -24,17 +25,13 @@ const NewsAndEvents: React.FC<NewsAndEventProps> = () => {
     });
     const navigate = useNavigate();
     return (
-        <div className="w-full px-8 lg:py-8 bg-gray-50 dark:bg-gray-900 rounded-xl xl:panel">
+        <div className="px-3 md:px-8 lg:py-8">
             {isLoading && <Loading />}
             {isError && <ErrorMsg />}
             {newsAndEventsData && newsAndEventsData.data && (
                 <div>
-                    <div className="lg:mb-10 mb-4 py-2">
-                        <h2 className="lg:text-4xl text-2xl font-black text-gray-800 dark:text-white">
-                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">News & Events</span>
-                        </h2>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <ComponentHeader title="News & Events" desktopSize="4xl" />
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                         {newsAndEventsData?.data.map((item) => {
                             const slugified = slugify(item.title);
 
@@ -42,7 +39,7 @@ const NewsAndEvents: React.FC<NewsAndEventProps> = () => {
                                 <div
                                     onClick={() => navigate(`/news/${item.id}/${slugified}`)}
                                     key={item.id}
-                                    className={` shadow-xl h-[28rem] relative overflow-hidden hover:cursor-pointer rounded-xl transition-all duration-300 hover:shadow-xl ${
+                                    className={` shadow-xl h-[28rem] relative overflow-hidden hover:cursor-pointer rounded-xl transition-all duration-300 hover:shadow-xl hover:scale-105 ${
                                         expandedItem === item.id ? 'col-span-3 md:row-span-2' : 'bg-white dark:bg-gray-800'
                                     }`}
                                 >
