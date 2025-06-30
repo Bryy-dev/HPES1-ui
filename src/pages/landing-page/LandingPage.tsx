@@ -84,20 +84,22 @@ const LandingPage: React.FC<LandingPageProps> = () => {
         });
 
     return (
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 ">
+        <div className="">
             {isLoading && isLoadingCalendar && <Loading />}
             {isError && calendarError && <ErrorMsg />}
 
             {apiData && apiCalendarData && apiCalendarData.data && apiData.data && (
                 <div>
-                    {/* Hero News Section */}
-                    <section className="lg:mb-10 mb-5 panel sm:px-12 px-4">
-                        <div className="flex items-center justify-between mb-6">
-                            <div className="py-2">
-                                <h2 className="lg:text-4xl text-2xl font-black text-gray-800 dark:text-white ">
-                                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Latest News</span>
+                    {/*  News Section */}
+                    <section className=" mb-5 bg-white border rounded-xl shadow-lg ">
+                        <div className="flex items-center justify-between lg:px-6 px-4 py-7">
+                            {/* component header */}
+                            <div className="">
+                                <h2 className="lg:text-4xl text-2xl font-black text-gray-800 dark:text-white">
+                                    <span className="page-header">Latest News</span>
                                 </h2>
                             </div>
+                            {/* Carousel Navigation */}
                             <div className="flex space-x-2">
                                 <button className="swiper-button-prev-news border-2 text-dark  rounded-full w-10 h-10 flex items-center justify-center hover:bg-indigo-700 hover:text-white transition-colors">
                                     <svg
@@ -132,7 +134,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                             </div>
                         </div>
 
-                        <div className="rounded-xl overflow-hidden  md:px-20">
+                        <div className="">
                             <Swiper
                                 modules={[Navigation, Pagination, Autoplay, EffectFade]}
                                 navigation={{
@@ -149,7 +151,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                                     disableOnInteraction: false,
                                 }}
                                 loop={true}
-                                className="h-[27rem] md:h-[33rem]"
+                                className="h-[35rem] md:h-[40rem] overflow-hidden rounded-b-xl"
                             >
                                 {apiData?.data.slice(0, 5).map((item, i) => {
                                     const date = new Date(item.date).toLocaleDateString('en-US', {
@@ -160,17 +162,21 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                                     const slugified = slugify(item.title);
 
                                     return (
-                                        <SwiperSlide key={i}>
-                                            <div className="relative h-full w-full group ">
-                                                {/* Image */}
-                                                <div className="absolute inset-0">
-                                                    <img src={item.url} className="w-full h-full px-10 object-cover object-center" alt={`News item ${i + 1}`} />
-                                                    {/* Gradient overlay */}
-                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10"></div>
+                                        <SwiperSlide key={i} className="">
+                                            <div className="relative h-full w-full group bg-cover bg-center bg-no-repeat rounded-2xl" style={{ backgroundImage: `url(${item.url})` }}>
+                                                {/* Blurry background overlay */}
+                                                <div className="absolute inset-0 backdrop-blur-md bg-black/30 z-0"></div>
+
+                                                {/* Foreground image */}
+                                                <div className="absolute inset-0 flex items-center justify-center z-10">
+                                                    <img src={item.url} className="max-h-full max-w-full object-contain  " alt={`News item ${i + 1}`} />
                                                 </div>
 
+                                                {/* Gradient overlay (optional, above bg) */}
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10 z-20"></div>
+
                                                 {/* Content */}
-                                                <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white">
+                                                <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white z-30">
                                                     <div className="inline-block px-3 py-1 mb-4 text-xs font-semibold bg-indigo-600 rounded-full">{date}</div>
                                                     <h3 className="text-base md:text-3xl font-bold mb-2 line-clamp-2">{item.title || `Featured News ${i + 1}`}</h3>
                                                     <p className="text-xs md:text-base text-gray-200 line-clamp-2 mb-4 max-w-2xl">
@@ -192,13 +198,13 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                     </section>
 
                     {/* Two Column Layout */}
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
                         {/* Events Section */}
                         <section className="lg:col-span-5  flex flex-col gap-2">
                             <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-md overflow-hidden border">
-                                <div className="px-6 py-5">
-                                    <h2 className="lg:text-2xl md:text-xl sm:text-lg text-xl font-black text-gray-800 dark:text-white sm:text-start text-center">
-                                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Events</span>
+                                <div className="px-6 pt-4 pb-1">
+                                    <h2 className="lg:text-2xl md:text-xl sm:text-lg text-2xl font-black text-gray-800 dark:text-white sm:text-start text-center">
+                                        <span className="page-header">Events</span>
                                     </h2>
                                 </div>
 
@@ -322,7 +328,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                                 </div>
                             </div>
 
-                            <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-md overflow-hidden border py-5">
+                            <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-md overflow-hidden border py-5 mt-2">
                                 <div className="px-6 ">
                                     <h2 className="text-2xl font-black text-gray-800 dark:text-white ">
                                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Quick Downloads</span>
@@ -456,7 +462,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                             <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-md overflow-hidden border">
                                 <div className="px-6 py-5">
                                     <h2 className="text-2xl font-black text-gray-800 dark:text-white ">
-                                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Academic Calendar</span>
+                                        <span className="page-header">Academic Calendar</span>
                                     </h2>
                                 </div>
                                 <div className="calendar-wrapper px-4 text-dark">

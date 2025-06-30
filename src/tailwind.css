@@ -726,3 +726,7 @@ pre.hljs {
 .dropdown-active-link {
     @apply bg-gradient-to-r from-cyan-400 to-blue-400 text-white border-cyan-200/50 shadow-lg font-semibold;
 }
+
+.page-header {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-500;
+}
