@@ -14,6 +14,8 @@ import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 import { useState } from 'react';
 import Loading from '../../components/loader';
 import ErrorMsg from '../../components/ErrorMsg';
+import { Component } from 'lucide-react';
+import ComponentHeader from '../../components/Header';
 
 interface GalleryProps {}
 
@@ -33,7 +35,7 @@ const GaleryPage: React.FC<GalleryProps> = ({}) => {
     const [open, setOpen] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [showDescription, setShowDescription] = useState(true);
-    const [selectedImage, setSelectedImage] = useState(null);
+    const [selectedImage, setSelectedImage] = useState({ src: '', title: '', description: '' });
     const slides = galleryData?.data.map((gallery) => ({
         src: gallery.image_url,
         title: gallery.title,
@@ -60,18 +62,15 @@ const GaleryPage: React.FC<GalleryProps> = ({}) => {
     };
     return (
         <>
-            <div className="lg:panel px-8">
-                <div className="lg:mb-10 mb-4 py-2">
-                    <h2 className="lg:text-4xl text-2xl font-black text-gray-800 dark:text-white">
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Gallery</span>
-                    </h2>
-                </div>
+            <div className="px-3 md:px-8 md:py-8">
+                <ComponentHeader title="School Gallery" desktopSize="4xl" />
+
                 {isLoading && <Loading />}
                 {isError && <ErrorMsg />}
                 {galleryData && galleryData.data && (
-                    <div className="grid xl:grid-cols-4 grid-cols-1 gap-2">
+                    <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 md:gap-6">
                         {galleryData?.data.map((gallery, index) => (
-                            <div key={gallery.id} className="transform transition-transform duration-300 hover:scale-110" onClick={() => handleImageClick(gallery)}>
+                            <div key={gallery.id} className="transform transition-transform duration-300 hover:scale-105" onClick={() => handleImageClick(gallery)}>
                                 <GalleryImageMapper title={gallery.title} description={gallery.description} date_upload={gallery.date_upload} image_url={gallery.image_url} data={gallery} />
                             </div>
                         ))}
