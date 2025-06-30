@@ -5,7 +5,7 @@ import ModuleService from '../../services/moduleService';
 import { modulesData } from '../../data/moduleSample';
 
 // Import modern icons
-import { Download, Search, ChevronLeft, ChevronRight, BookOpen, Calendar, Filter } from 'lucide-react';
+import { Download, Search, ChevronLeft, ChevronRight, BookOpen, Calendar, Filter, Component } from 'lucide-react';
 import { ModuleModel, ModuleSearchModel } from '../../models/moduleModel';
 import { dateToString } from '../../components/helper/dateFormmater';
 import { grade_level, subjects, week } from '../../components/helper/options';
@@ -13,6 +13,7 @@ import { Field, Form, Formik } from 'formik';
 import { moduleSearchInitialState } from '../../states/initialStates';
 import Loading from '../../components/loader';
 import { capitalizeEachWord } from '../../components/helper/capitalPerWord.';
+import ComponentHeader from '../../components/Header';
 
 interface ModulesProps {}
 
@@ -115,20 +116,24 @@ const Modules: React.FC<ModulesProps> = () => {
         );
     };
 
-    return (
-        <div className="lg:bg-white dark:bg-gray-900 p-6 rounded-xl shadow-sm px-8">
-            <div className="lg:mb-10 mb-4 py-2">
-                <h2 className="lg:text-4xl text-2xl font-black text-gray-800 dark:text-white">
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Learning Modules</span>
-                </h2>
-            </div>
+    const onClear = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        if (apiData?.data) {
+            setModuleData(apiData.data);
+        }
+    };
 
-            <div className="lg:px-40">
-                <div className="panel dark:bg-gray-800 p-6 rounded-lg mb-8">
+    return (
+        <div className="xl:px-32 lg:px-24 md:px-16 px-3 md:py-8">
+            <ComponentHeader title="Learning Modules" desktopSize="4xl" />
+
+            <div className="pt-2">
+                <div className="panel dark:bg-gray-800  rounded-lg mb-8">
                     <div className="flex items-center gap-2 mb-4">
                         <Filter className="h-5 w-5 text-blue-600" />
                         <h3 className="font-semibold text-gray-700 dark:text-gray-200">Filter Modules</h3>
                     </div>
+
                     <Formik
                         // key={data?.id ? data.id : null}
                         enableReinitialize
@@ -142,7 +147,7 @@ const Modules: React.FC<ModulesProps> = () => {
                             search(queryString);
                         }}
                     >
-                        {({ values, setFieldValue, errors, touched, isValid, isSubmitting }) => {
+                        {({ values, setFieldValue, errors, touched, isValid, isSubmitting, resetForm }) => {
                             return (
                                 <Form className="">
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -153,6 +158,9 @@ const Modules: React.FC<ModulesProps> = () => {
                                                 as="select"
                                                 className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 outline-none"
                                             >
+                                                <option value="" disabled>
+                                                    Select Grade Level
+                                                </option>
                                                 {grade_level.map((data, index) => (
                                                     <option value={data.key} key={index}>
                                                         {data.value}
@@ -168,6 +176,9 @@ const Modules: React.FC<ModulesProps> = () => {
                                                 as="select"
                                                 className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 outline-none"
                                             >
+                                                <option value="" disabled>
+                                                    Select Subject
+                                                </option>
                                                 {subjects.map((data, index) => (
                                                     <option value={data.key} key={index}>
                                                         {data.value}
@@ -183,6 +194,9 @@ const Modules: React.FC<ModulesProps> = () => {
                                                 as="select"
                                                 className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 outline-none"
                                             >
+                                                <option value="" disabled>
+                                                    Select Week
+                                                </option>
                                                 {week.map((data, index) => (
                                                     <option value={data.key} key={index}>
                                                         {data.value}
@@ -192,12 +206,22 @@ const Modules: React.FC<ModulesProps> = () => {
                                         </div>
                                     </div>
 
-                                    <div className="flex justify-end items-center py-2">
+                                    <div className="flex justify-end items-center py-2 gap-1">
+                                        <button
+                                            type="button"
+                                            className="px-4 py-2 text-gray-600 bg-gray-50 border hover:bg-gray-100 rounded-lg transition-colors duration-200 text-sm font-medium flex items-center"
+                                            onClick={(e) => {
+                                                onClear(e);
+                                                resetForm();
+                                            }}
+                                        >
+                                            <span className="">Clear</span>
+                                        </button>
                                         <button
                                             type="submit"
-                                            className="px-4 py-2 text-gray-600 bg-gray-50 border hover:bg-gray-100 rounded-lg transition-colors duration-200 text-sm font-medium flex items-center"
+                                            className="px-4 py-2 text-white bg-blue-500 border hover:bg-blue-600 rounded-lg transition-colors duration-200 text-sm font-medium flex items-center justify-center"
                                         >
-                                            <Search className="h-4 w-4" />
+                                            <Search className="h-4 w-4 mr-1" />
                                             <span className="">Filter Results</span>
                                         </button>
                                     </div>
@@ -207,7 +231,7 @@ const Modules: React.FC<ModulesProps> = () => {
                     </Formik>
                 </div>
 
-                <div id="results-container" className="space-y-4">
+                <div id="results-container" className="space-y-4 md:panel">
                     {isLoading && <Loading />}
 
                     {isPending && <Loading />}
@@ -220,84 +244,89 @@ const Modules: React.FC<ModulesProps> = () => {
                         </div>
                     )}
 
-                    {currentModules.map((item, index) => (
-                        <div
-                            key={index}
-                            className=" dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-5 shadow-md hover:shadow-lg transition-all transform hover:translate-y-px"
-                        >
-                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                                <div className="px-2">
-                                    <div className="lg:flex grid items-center gap-2 mb-1">
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 py-2 px-3 rounded-full">
-                                            {capitalizeEachWord(item.week)}
-                                        </span>
-                                        <h3 className="text-lg font-bold text-blue-600 dark:text-blue-400">{capitalizeEachWord(item.subject)}</h3>
-                                    </div>
+                    <div className="">
+                        {currentModules.map((item, index) => (
+                            <>
+                                <ComponentHeader title="Available Modules" desktopSize="xl" defaultSize="xl" />
+                                <div
+                                    key={index}
+                                    className=" dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-5 shadow-md hover:shadow-lg transition-all transform hover:translate-y-px"
+                                >
+                                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                        <div className="px-2">
+                                            <div className="lg:flex grid grid-cols-2 items-center gap-2 mb-1">
+                                                <h3 className="text-lg font-bold text-blue-600 dark:text-blue-400">{capitalizeEachWord(item.subject)}</h3>
+                                                <span className="text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 py-2 px-3 rounded-lg text-center">
+                                                    {capitalizeEachWord(item.week)}
+                                                </span>
+                                            </div>
 
-                                    <h4 className="font-semibold text-gray-800 dark:text-gray-200">{item.topic}</h4>
+                                            <h4 className="font-semibold text-gray-800 dark:text-gray-200">{item.topic}</h4>
 
-                                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{item.description}</p>
+                                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{item.description}</p>
 
-                                    <div className="flex items-center gap-1 mt-2 text-xs text-gray-500 dark:text-gray-400">
-                                        <Calendar className="h-3 w-3" />
-                                        <span>{dateToString(item.discussion_date)}</span>
+                                            <div className="flex items-center gap-1 mt-2 text-xs text-gray-500 dark:text-gray-400">
+                                                <Calendar className="h-3 w-3" />
+                                                <span>{dateToString(item.discussion_date)}</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="md:self-end">
+                                            <button
+                                                type="button"
+                                                onClick={() => download(item)}
+                                                disabled={isLoading}
+                                                className="px-4 py-2 text-white bg-blue-500 border hover:bg-blue-600 rounded-lg   text-sm font-medium flex items-center justify-center w-full"
+                                            >
+                                                <Download className="h-4 w-4" />
+                                                <span className="ps-1 pt-0.5">Download</span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
+                            </>
+                        ))}
 
-                                <div className="md:self-end">
+                        {moduleData && moduleData?.length > 0 && (
+                            <div className="flex justify-center mt-8">
+                                <nav className="flex items-center space-x-1">
                                     <button
-                                        type="button"
-                                        onClick={() => download(item)}
-                                        disabled={isLoading}
-                                        className="px-4 py-2 text-white bg-blue-400 border hover:bg-blue-500 rounded-lg transition-colors duration-200 text-sm font-medium flex items-center"
+                                        onClick={() => goToPage(currentPage - 1)}
+                                        disabled={currentPage === 1}
+                                        className="p-2 rounded-lg enabled:hover:bg-gray-100 dark:enabled:hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                        aria-label="Previous page"
                                     >
-                                        <Download className="h-4 w-4" />
-                                        <span className="ps-1 pt-0.5">Download</span>
+                                        <ChevronLeft className="h-5 w-5 text-gray-700 dark:text-gray-300" />
                                     </button>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
 
-                {moduleData && moduleData?.length > 0 && (
-                    <div className="flex justify-center mt-8">
-                        <nav className="flex items-center space-x-1">
-                            <button
-                                onClick={() => goToPage(currentPage - 1)}
-                                disabled={currentPage === 1}
-                                className="p-2 rounded-lg enabled:hover:bg-gray-100 dark:enabled:hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                                aria-label="Previous page"
-                            >
-                                <ChevronLeft className="h-5 w-5 text-gray-700 dark:text-gray-300" />
-                            </button>
-
-                            <div className="flex space-x-1">
-                                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                                    <button
-                                        key={page}
-                                        onClick={() => goToPage(page)}
-                                        className={`
+                                    <div className="flex space-x-1">
+                                        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                                            <button
+                                                key={page}
+                                                onClick={() => goToPage(page)}
+                                                className={`
                     w-10 h-10 flex items-center justify-center rounded-lg transition-colors
                     ${currentPage === page ? 'bg-blue-600 text-white font-medium' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}
                   `}
-                                    >
-                                        {page}
-                                    </button>
-                                ))}
-                            </div>
+                                            >
+                                                {page}
+                                            </button>
+                                        ))}
+                                    </div>
 
-                            <button
-                                onClick={() => goToPage(currentPage + 1)}
-                                disabled={currentPage === totalPages}
-                                className="p-2 rounded-lg enabled:hover:bg-gray-100 dark:enabled:hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                                aria-label="Next page"
-                            >
-                                <ChevronRight className="h-5 w-5 text-gray-700 dark:text-gray-300" />
-                            </button>
-                        </nav>
+                                    <button
+                                        onClick={() => goToPage(currentPage + 1)}
+                                        disabled={currentPage === totalPages}
+                                        className="p-2 rounded-lg enabled:hover:bg-gray-100 dark:enabled:hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                        aria-label="Next page"
+                                    >
+                                        <ChevronRight className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+                                    </button>
+                                </nav>
+                            </div>
+                        )}
                     </div>
-                )}
+                </div>
             </div>
         </div>
     );
