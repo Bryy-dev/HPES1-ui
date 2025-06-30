@@ -730,3 +730,7 @@ pre.hljs {
 .page-header {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-500;
 }
+
+.survey-container {
+    @apply lg:col-span-2 lg:flex items-center lg:justify-between lg:px-4 px-2 rounded py-2;
+}

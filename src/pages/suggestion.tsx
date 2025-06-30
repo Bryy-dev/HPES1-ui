@@ -8,6 +8,8 @@ import { useEffect, useRef, useState } from 'react';
 import { showNotification } from '../components/notifications/notifications';
 import SuggestionService from '../services/suggestionService';
 import { er } from '@fullcalendar/core/internal-common';
+import { Component } from 'lucide-react';
+import ComponentHeader from '../components/Header';
 interface SuggestionProps {}
 
 interface SuggestionModel {
@@ -52,10 +54,9 @@ const Suggestion: React.FC<SuggestionProps> = ({}) => {
         return !!(values.suggestion?.trim() || values.comment?.trim() || values.concern?.trim());
     });
 
-    const [onsubmit, setOnSubmit] = useState<boolean>(false);
-
     return (
-        <div>
+        <div className="xl:px-80 lg:px-20 md:px-16 px-2 md:py-8">
+            <ComponentHeader title="Suggestion Form" desktopSize="4xl" />
             <Formik
                 // key={data?.id ? data.id : null}
                 enableReinitialize
@@ -78,7 +79,7 @@ const Suggestion: React.FC<SuggestionProps> = ({}) => {
                     }
                 }}
             >
-                {({ values, setFieldValue, errors, touched, isValid, isSubmitting, resetForm }) => {
+                {({ values, resetForm }) => {
                     return (
                         <Form className="">
                             {/* Loader Overlay */}
@@ -87,17 +88,11 @@ const Suggestion: React.FC<SuggestionProps> = ({}) => {
                             {isError && <ErrorMsg />}
                             {isPending && <Loading />}
                             {!isPending && !isError && (
-                                <div className="lg:flex lg:flex-col items-center">
-                                    <div className="lg:panel px-2 lg:w-3/4">
-                                        <div className="mb-3 lg:py-2 text-center">
-                                            <h2 className="lg:text-4xl text-2xl font-black text-gray-800 dark:text-white ">
-                                                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500">Comment & Suggestion Form</span>
-                                            </h2>
-                                        </div>
-
+                                <div className="">
+                                    <div className="bg-white shadow-lg rounded-xl border md:px-12 px-6 py-10">
                                         <div className="">
-                                            <div className="p-2 text-gray-black  pt-10 pb-5 bg-white shadow-xl border lg:shadow-none lg:border-none lg:rounded-none   rounded-lg ">
-                                                <div className="grid lg:grid-cols-2 gap-2  px-4 ">
+                                            <div className="  ">
+                                                <div className="grid lg:grid-cols-2 gap-2">
                                                     {/* Title */}
                                                     <div className="group">
                                                         <label className="block text-sm font-medium text-gray-700">Full Name</label>
@@ -147,7 +142,7 @@ const Suggestion: React.FC<SuggestionProps> = ({}) => {
                                                     </div>
                                                 </div>
                                                 {/* Buttons */}
-                                                <div className="flex justify-end items-center gap-3 pt-5 mt-4 border-t border-gray-100 px-5 lg:px-0">
+                                                <div className="flex justify-end items-center gap-2 pt-5 mt-4 border-t border-gray-100 ">
                                                     <button
                                                         className="px-4 py-2 text-gray-600 bg-gray-50 border hover:bg-gray-100 rounded-lg transition-colors duration-200 text-sm font-medium flex items-center"
                                                         onClick={(e) => {
